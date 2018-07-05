@@ -1,7 +1,6 @@
 .mod-status
   display: flex
   flex-direction: column
-  padding: 20px
   min-height: 100vh
 
   .description
@@ -9,29 +8,38 @@
     font-size: 17px
 
   .time-left
-    text-align: center
+    text-align: left
     font-size: 30px
+    margin-left: 50px
     margin-bottom: 20px
+
+  .room-name
+    display: block
+    width: 350px
+    margin-top: 25px
+    margin-left: 50px
+    margin-right: auto
+    padding-bottom: 25px
+    border-bottom: 3px solid rgba(11, 131, 113, .15)
+    font-size: 30px
+    font-weight: bold
+    h1
+      display: block
 
   p,
   h1
-    margin-bottom: 10px
+    margin-left: 50px
 
-  $circle-size: 250px
-
-  .circle
-    width: $circle-size
-    margin: 50px auto 20px
-
-  .clock
-    margin: 10px auto
-    display: table-cell
-    width: $circle-size
-    height: $circle-size
-    border: 8px solid white
-    vertical-align: middle
-    text-align: center
-    font-size: 52px
+  .status
+    font-size: 70px
+    font-weight: bold
+    display: block
+    width: 350px
+    height: 370px
+    margin-left: 50px
+    margin-top: 35px
+    text-align: left
+    line-height: 80px
     font-family: $font-family-header
 
   .in_use &
@@ -42,36 +50,46 @@
     color: white
     background-color: $green
 
+  .welcome-message
+    font-size: 24px
+    margin-top: 40px
+    margin-left: 50px
+
   .available-rooms
     p
+      font-size: 18px
       margin-bottom: 0
-
-    ul
-      list-style: disc
-
-    li
-      margin-left: 16px
+      margin-top: 25px
 
   .buttons
-    display: flex
-    flex-direction: column
-    align-items: center
-    justify-content: space-around
-    width: 375px
-    height: 160px
-    margin: 1em auto
+    display: block
+    width: 400px
+    margin-top: 50px
+    margin-left: 50px
 
   button
-    font-size: 18px
+    color: #09AB92
+    float: left
+    font-size: 14px
     font-weight: bold
-    padding: 12px
-    flex-basis: 250px
+    padding: 15px
     height: 50px
-    width: 250px
+    width: 170px
     border-radius: 5px
-    margin: 0
-    background-color: ghostwhite
+    margin-right: 20px
+    background-color: #FFFFFF
 
   button:active
     border: none
     background-color: #CFD8DC
+
+  button:disabled
+    border: none
+
+    .available &
+      color: #09AB92
+      background-color: #088E7A
+
+    .in_use &
+      color: #FF2500
+      background-color: #CC1E00
