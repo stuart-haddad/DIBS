@@ -5,25 +5,36 @@
       <h1><%= @calendar.location %></h1>
     </div>
 
+
     <div class="status">
       <%= @calendar.available? ? "Woohoo! This room is currently available." : "Whoops! This room is currently in use." %>
     </div>
+                           
+   <!-- Welcome message to next company that is indicated by brackets -->
+      <% @calendar.events.inject(nil) do |previous, event| %>
+    
+        <% if @calendar.current_event == event %>
+          <%= event.welcome %>
+          <%= event.check_event %>
+          Next opening at 
+          <% if @calendar.next_event != nil && @calendar.after_event(@calendar.next_event) != nil %>
+          <%= @calendar.after_event(@calendar.next_event).end_time.strftime("%I:%M %p") %>
+          <% elsif @calendar.next_event != nil && @calendar.current_event.end_time == @calendar.next_event.begin_time %>
+          <%= @calendar.next_event.end_time.strftime("%I:%M %p") %>
+          <% else %>
+          <%= @calendar.current_event.end_time.strftime("%I:%M %p") %>
+          <% end %>
+        <% end %>
 
-    <!-- Welcome message to next company that is indicated by brackets -->
-    <div class="welcome-message">
-       <% @calendar.events.inject(nil) do |previous, event| %>
-         <% if @calendar.current_event == event %>
-           <%= event.welcome %>
-           <%= event.check_event %>
-         <% end %>
-           <% if @calendar.next_event == event && @calendar.time_left.to_i <= 15 %>
-           <%= event.next_event %>
-             <%= event.welcome %>
-             <%= event.meeting_event %>
-             <%= @calendar.time_left %>
-           <% end %>
-       <% end %>
-    </div>
+          <% if @calendar.next_event == event && ((@calendar.next_event.begin_time - DateTime.now) * 24 * 60).to_i <= 15 %>
+          <%= event.next_event %>
+            <%= event.welcome %>
+            <br>
+            Your meeting is in 
+          <%= @calendar.time_left %>
+          <% end %>
+    <% end %>
+   
 
     <div class="buttons">
       <% if @calendar.available? %>
