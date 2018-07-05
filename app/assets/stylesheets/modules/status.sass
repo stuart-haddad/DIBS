@@ -2,6 +2,7 @@
   display: flex
   flex-direction: column
   min-height: 100vh
+  // min-width: 925px
 
   .description
     padding-right: 50px
@@ -20,9 +21,12 @@
     margin-left: 50px
     margin-right: auto
     padding-bottom: 25px
-    border-bottom: 3px solid rgba(11, 131, 113, .15)
     font-size: 30px
     font-weight: bold
+    .in_use &
+      border-bottom: 3px solid rgba(204, 30, 0, .25)
+    .available &
+      border-bottom: 3px solid rgba(11, 131, 113, .25)
     h1
       display: block
 
@@ -49,6 +53,10 @@
   .available &
     color: white
     background-color: $green
+
+  .nextMeeting
+    font-size: 24px
+    margin-left: 50px
 
   .welcome-message
     font-size: 24px

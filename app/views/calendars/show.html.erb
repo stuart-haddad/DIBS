@@ -5,18 +5,17 @@
       <h1><%= @calendar.location %></h1>
     </div>
 
-
     <div class="status">
       <%= @calendar.available? ? "Woohoo! This room is currently available." : "Whoops! This room is currently in use." %>
     </div>
-                           
+
    <!-- Welcome message to next company that is indicated by brackets -->
       <% @calendar.events.inject(nil) do |previous, event| %>
-    
+      <div class="nextMeeting">
         <% if @calendar.current_event == event %>
           <%= event.welcome %>
           <%= event.check_event %>
-          Next opening at 
+          Next opening at
           <% if @calendar.next_event != nil && @calendar.after_event(@calendar.next_event) != nil %>
           <%= @calendar.after_event(@calendar.next_event).end_time.strftime("%I:%M %p") %>
           <% elsif @calendar.next_event != nil && @calendar.current_event.end_time == @calendar.next_event.begin_time %>
@@ -25,16 +24,17 @@
           <%= @calendar.current_event.end_time.strftime("%I:%M %p") %>
           <% end %>
         <% end %>
+      </div>
 
           <% if @calendar.next_event == event && ((@calendar.next_event.begin_time - DateTime.now) * 24 * 60).to_i <= 15 %>
           <%= event.next_event %>
             <%= event.welcome %>
             <br>
-            Your meeting is in 
+            Your meeting is in
           <%= @calendar.time_left %>
           <% end %>
     <% end %>
-   
+
 
     <div class="buttons">
       <% if @calendar.available? %>
@@ -63,7 +63,7 @@
     <% if @other_available_calenders.present? %>
             <% @other_available_calenders.each do |c| %>
                 <% available_for = c.next_event.blank? ? "until the end of the day" : c.time_left(suffix: "")%>
-              <p><%= "#{c.location} is available for the next #{available_for}" %></p>
+              <p><%= "#{c.location} is available for #{available_for}" %></p>
             <% end %>
     <% else %>
       <p>No other rooms are available.</p>
