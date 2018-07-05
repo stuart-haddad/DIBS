@@ -1,64 +1,63 @@
 
 <div class="mod-meeting-display <%= @calendar.available? ? "available" : "in_use" %>">
   <div class="mod-status">
-    <h1><%= @calendar.location %></h1>
-    <p class="description"><%= @calendar.description %></p>
-
-   <!-- Welcome message to next company that is indicated by brackets -->
-      <% @calendar.events.inject(nil) do |previous, event| %>
-        <% if @calendar.current_event == event %>
-          <%= event.welcome %>
-          <%= event.check_event %>
-        <% end %>
-          <% if @calendar.next_event == event && ((@calendar.next_event.begin_time - DateTime.now) * 24 * 60).to_i <= 15 %>
-          <%= event.next_event %>
-            <%= event.welcome %>
-            <%= event.meeting_event %>
-            <%= @calendar.time_left %>
-          <% end %>
-    <% end %>
-
-    <div class="circle">
-      <div class="clock">
-        <%= @calendar.available? ? "Available" : "In use" %>
-      </div>
+    <div class="room-name"
+      <h1><%= @calendar.location %></h1>
     </div>
-    <div class="time-left"><%= @calendar.time_left %></div>
-    <% if @other_available_calenders.present? %>
-      <div class="available-rooms">
-        <% if @calendar.in_use? %>
-            <p>These rooms are available right now:</p>
-            <ul>
-              <% @other_available_calenders.each do |c| %>
-                  <% available_for = c.next_event.blank? ? "until the end of the day" : c.time_left(suffix: "")%>
-                <li><%= "#{c.location} #{available_for}" %></li>
-              <% end %>
-            </ul>
+
+    <div class="status">
+      <%= @calendar.available? ? "Woohoo! This room is currently available." : "Whoops! This room is currently in use." %>
+    </div>
+
+    <!-- Welcome message to next company that is indicated by brackets -->
+    <div class="welcome-message">
+       <% @calendar.events.inject(nil) do |previous, event| %>
+         <% if @calendar.current_event == event %>
+           <%= event.welcome %>
+           <%= event.check_event %>
+         <% end %>
+           <% if @calendar.next_event == event && @calendar.time_left.to_i <= 15 %>
+           <%= event.next_event %>
+             <%= event.welcome %>
+             <%= event.meeting_event %>
+             <%= @calendar.time_left %>
+           <% end %>
+       <% end %>
+    </div>
+
+    <div class="buttons">
+      <% if @calendar.available? %>
+        <% if @calendar.next_event == nil %>
+          <%= link_to '<button name="30mButton" type="button" >Book Next 30 Mins</button>'.html_safe, book30_path(@calendar.calendar_id)%>
+          <%= link_to '<button name="1hrButton" type="button" >Book Next Hour</button>'.html_safe, bookHour_path(@calendar.calendar_id)%>
         <% else %>
-            <p>No other room is available right now.</p>
-        <% end %>
-      </div>
-    <% end %>
-
-      <div class="buttons">
-        <% if @calendar.available? && @calendar.next_event == nil %>
-            <%= link_to '<button name="1hrButton" type="button">Book Next Hour</button>'.html_safe, bookHour_path(@calendar.calendar_id)%>
-            <%= link_to '<button name="30mButton" type="button">Book Next 30 Mins</button>'.html_safe, book30_path(@calendar.calendar_id)%>
-          <% end %>
-
-        <% if @calendar.available? && @calendar.next_event != nil %>
-          <% if ((@calendar.next_event.begin_time - DateTime.now) * 24 * 60).to_i  >= 60 %>
-            <%= link_to '<button name="1hrButton" type="button">Book Next Hour</button>'.html_safe, bookHour_path(@calendar.calendar_id)%>
-          <% else %>
-            <%= link_to '<button name="1hrButton" type="button" disabled>Book Next Hour</button>'.html_safe, bookHour_path(@calendar.calendar_id)%>
-          <% end %>
           <% if ((@calendar.next_event.begin_time - DateTime.now) * 24 * 60).to_i >= 30 %>
             <%= link_to '<button name="30mButton" type="button">Book Next 30 Mins</button>'.html_safe, book30_path(@calendar.calendar_id)%>
           <% else %>
             <%= link_to '<button name="30mButton" type="button" disabled>Book Next 30 Mins</button>'.html_safe, book30_path(@calendar.calendar_id)%>
           <% end %>
+          <% if ((@calendar.next_event.begin_time - DateTime.now) * 24 * 60).to_i  >= 60 %>
+            <%= link_to '<button name="1hrButton" type="button">Book Next Hour</button>'.html_safe, bookHour_path(@calendar.calendar_id)%>
+          <% else %>
+            <%= link_to '<button name="1hrButton" type="button" disabled>Book Next Hour</button>'.html_safe, bookHour_path(@calendar.calendar_id)%>
+          <% end %>
         <% end %>
-      </div>
+      <% else %>
+        <%= link_to '<button name="30mButton" type="button" disabled>Book Next 30 Mins</button>'.html_safe, book30_path(@calendar.calendar_id)%>
+        <%= link_to '<button name="1hrButton" type="button" disabled>Book Next Hour</button>'.html_safe, bookHour_path(@calendar.calendar_id)%>
+      <% end %>
+    </div>
+
+    <div class="available-rooms">
+    <% if @other_available_calenders.present? %>
+            <% @other_available_calenders.each do |c| %>
+                <% available_for = c.next_event.blank? ? "until the end of the day" : c.time_left(suffix: "")%>
+              <p><%= "#{c.location} is available for the next #{available_for}" %></p>
+            <% end %>
+    <% else %>
+      <p>No other rooms are available.</p>
+    <% end %>
+    </div>
   </div>
 
   <div class="mod-calendar">
