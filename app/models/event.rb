@@ -85,11 +85,8 @@ class Event
     return '' if attendee.blank?
 
     name = attendee.display_name.presence || attendee.email
-    name.gsub!("@ultimaker.com", "")
-
-    if name =~ /\A\w\.\w+\z/
-      name = name.split(".").map(&:capitalize).join(". ")
-    end
+    name = name[/^(.+?)./]
+    name.capitalize
 
     name
   end
