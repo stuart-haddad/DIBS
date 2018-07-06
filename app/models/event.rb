@@ -112,9 +112,9 @@ class Event
 
   def parse_welcome(summary)
      if summary.include?("[") == false
-      return 'Welcome '
+      return "Welcome! Let's get started."
   else
-    return "Welcome! Let's get started."
+    return "Welcome, "
     end
   end
 
