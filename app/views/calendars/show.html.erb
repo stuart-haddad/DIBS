@@ -1,13 +1,9 @@
 
 <div class="mod-meeting-display <%= @calendar.available? ? "available" : "in_use" %>">
   <div class="mod-status">
-<<<<<<< HEAD
 
     <div class="room-name">
-=======
-    <div class="room-name"
       <% @calendar.location.slice!("TSE-2-") %>
->>>>>>> 0cf3ff7e2dc1ec3a89d99708a7d1a3efbfe4c880
       <h1><%= @calendar.location %></h1>
     </div>
 
@@ -47,7 +43,6 @@
       </div>
     <% end %>
 
-
     <div class="buttons">
       <% if @calendar.available? %>
         <% if @calendar.next_event == nil %>
@@ -73,20 +68,17 @@
 
     <div class="available-rooms">
     <% if @other_available_calenders.present? %>
-<<<<<<< HEAD
       <% @other_available_calenders.each do |c| %>
         <% available_for = c.next_event.blank? ? "until the end of the day" : c.time_left(suffix: "")%>
         <p><%= "#{c.location} is available for #{available_for}" %></p>
       <% end %>
     <% else %>
       <p>No other rooms are available.</p>
-=======
             <% @other_available_calenders.each do |c| %>
                 <% available_for = c.next_event.blank? ? "until the end of the day" : c.time_left(suffix: "")%>
                 <% c.location.slice!("TSE-2-") %>
               <p><%= "#{c.location} is available for #{available_for}" %></p>
             <% end %>
->>>>>>> 0cf3ff7e2dc1ec3a89d99708a7d1a3efbfe4c880
     <% end %>
     </div>
   </div>
