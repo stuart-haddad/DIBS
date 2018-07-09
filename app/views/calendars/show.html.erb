@@ -1,21 +1,18 @@
-
-
-<% @calendar.events.inject(nil) do |previous, event| %>
-  <div class="welcome-panel">
-    <div class="X">
-      
-        <img src = "/ic-close.svg" id = "image" onclick="myFunction()"></div>
-    </div>
-      <% if @calendar.next_event == event && ((@calendar.next_event.begin_time - DateTime.now) * 24 * 60).to_i <= 15 %>
-        <% @calendar.location.slice!("TSE-2-") %>
-        <h2><%= @calendar.location %></h2>
-        <h1><%= event.welcome %><%= event.client %></h1>
-        <p>
-          Your meeting is in <%= @calendar.time_left %>.
-        </p>
-      <% end %>
+<div class="welcome-panel">
+  <div class="X">
+      <img src = "/ic-close.svg" id = "image" onclick="myFunction()">
   </div>
-<% end %>
+  <% @calendar.events.inject(nil) do |previous, event| %>
+    <% if @calendar.next_event == event && ((@calendar.next_event.begin_time - DateTime.now) * 24 * 60).to_i <= 15 %>
+      <% @calendar.location.slice!("TSE-2-") %>
+      <h2><%= @calendar.location %></h2>
+      <h1><%= event.welcome %><%= event.client %>.</h1>
+      <p>
+        Your meeting is in <%= @calendar.time_left %>.
+      </p>
+    <% end %>
+  <% end %>
+</div>
 
 <div class="mod-meeting-display <%= @calendar.available? ? "available" : "in_use" %>">
 
@@ -48,7 +45,7 @@
 
       <div class="nextMeeting">
         <% if @calendar.next_event == event && @calendar.available?%>
-          Next meeting begins at <%= event.begin_time.strftime("%l:%M %p")%>
+          Next meeting begins at <%= event.begin_time.strftime("%l:%M %p")%>.
         <% end %>
       </div>
     <% end %>

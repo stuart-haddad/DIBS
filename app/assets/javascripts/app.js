@@ -7,4 +7,3 @@ var pic = document.getElementById('image').onclick = () => {
 	}
 };
 };
-
