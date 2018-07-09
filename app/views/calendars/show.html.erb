@@ -1,7 +1,10 @@
+
+
 <% @calendar.events.inject(nil) do |previous, event| %>
   <div class="welcome-panel">
     <div class="X">
-      <%= image_tag("ic-close.svg", size: "70")%>
+      
+        <img src = "/ic-close.svg" id = "image" onclick="myFunction()"></div>
     </div>
       <% if @calendar.next_event == event && ((@calendar.next_event.begin_time - DateTime.now) * 24 * 60).to_i <= 15 %>
         <% @calendar.location.slice!("TSE-2-") %>
@@ -111,3 +114,5 @@
     </span>
   </div>
 </div>
+
+<%= javascript_include_tag "app" %>
