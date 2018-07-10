@@ -1,7 +1,6 @@
 <% @calendar.events.inject(nil) do |previous, event| %>
   <div class="welcome-panel
-    <% if ((@calendar.next_event.begin_time - DateTime.now) * 24 * 60).to_i <= 15 %>
-      slide-out
+    <% if  @calendar.next_event == event && ((@calendar.next_event.begin_time - DateTime.now) * 24 * 60).to_i <= 15 %> slide-out
     <% end %>
   ">
     <div class="X">
