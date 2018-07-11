@@ -1,8 +1,11 @@
 <% @calendar.events.inject(nil) do |previous, event| %>
 <% if @calendar.next_event == event && ((@calendar.next_event.begin_time - DateTime.now) * 24 * 60).to_i <= 15 %>
   <div class="welcome-panel
-    <% if @calendar.next_event == event && ((@calendar.next_event.begin_time - DateTime.now) * 24 * 60).to_i <= 15 %>
+    <% if @calendar.next_event == event && ((@calendar.next_event.begin_time - DateTime.now) * 24 * 60).to_i <= 15 &&
+      @calendar.next_event == event && ((@calendar.next_event.begin_time - DateTime.now) * 24 * 60).to_i >= 14 %>
       animate-on-load
+    <% elsif @calendar.next_event == event && ((@calendar.next_event.begin_time - DateTime.now) * 24 * 60).to_i >=1 %>
+      stay-there
     <% end %>
   ">
     <div class="X">
