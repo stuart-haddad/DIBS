@@ -1,10 +1,8 @@
 window.onload = function() {
-
-var panel = document.getElementsByClassName('welcome-panel');
-var pic = document.getElementById('image').onclick = function() {
-	for (var i=0;i<panel.length;i+=1){
-  		panel[i].style.display = 'none';
-	}
+	//If animation is required on page load, add slide out class
+	jQuery('.animate-on-load').addClass('slide-out');
+	//On click of X, remove slide out class
+	jQuery("#close-welcome-message").click(function(){
+		jQuery('.welcome-panel').removeClass('slide-out');
+	});
 };
-};
-
