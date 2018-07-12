@@ -41,7 +41,7 @@
           <%= event.client %>
           <%= event.check_event %>
           Next opening at
-          <% if @calendar.next_event != nil && @calendar.after_event(@calendar.next_event) != nil && @calendar.after_event(@calendar.next_event).end_time == @calendar.next_event.end_time %>
+          <% if @calendar.next_event != nil && @calendar.after_event(@calendar.next_event) != nil && @calendar.after_event(@calendar.next_event).begin_time == @calendar.next_event.end_time %>
             <%= @calendar.after_event(@calendar.next_event).end_time.strftime("%l:%M %p") %>
           <% elsif @calendar.next_event != nil && @calendar.current_event.end_time == @calendar.next_event.begin_time %>
             <%= @calendar.next_event.end_time.strftime("%l:%M %p") %>
