@@ -8,10 +8,9 @@
 <% @calendar.events.inject(nil) do |previous, event| %>
 <% if @calendar.next_event == event && ((@calendar.next_event.begin_time - DateTime.now) * 24 * 60).to_i <= 15 %>
   <div class="welcome-panel
-    <% if @calendar.next_event == event && ((@calendar.next_event.begin_time - DateTime.now) * 24 * 60).to_i <= 15 &&
-      @calendar.next_event == event && ((@calendar.next_event.begin_time - DateTime.now) * 24 * 60).to_i >= 14 %>
+    <% if ((@calendar.next_event.begin_time - DateTime.now) * 24 * 60) >= 14.5 %>
       animate-on-load
-    <% elsif @calendar.next_event == event && ((@calendar.next_event.begin_time - DateTime.now) * 24 * 60).to_i >=1 %>
+    <% elsif ((@calendar.next_event.begin_time - DateTime.now) * 24 * 60).to_i >=1 %>
       stay-there
     <% end %>
   ">
@@ -39,7 +38,7 @@
     </div>
 
     <div class="status">
-      <%= @calendar.available? ? "Woohoo! This room is currently available." : "Whoops! This room is currently in use." %>
+      <%= @calendar.available? ? "Woohoo! This room is currently available." : "Whoops! This room is currently unavailable." %>
     </div>
 
     <% @calendar.events.inject(nil) do |previous, event| %>
@@ -47,6 +46,7 @@
         <% if @calendar.current_event == event %>
           <%= event.client %>
           <%= event.check_event %>
+          <br />
           Next opening at
           <% if @calendar.next_event != nil && @calendar.after_event(@calendar.next_event) != nil && @calendar.after_event(@calendar.next_event).begin_time == @calendar.next_event.end_time %>
             <%= @calendar.after_event(@calendar.next_event).end_time.strftime("%l:%M %p") %>
