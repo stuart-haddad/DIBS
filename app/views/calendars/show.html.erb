@@ -1,10 +1,4 @@
-<button id="goFS">Go fullscreen</button>
-<script>
-  var goFS = document.getElementById("goFS");
-  goFS.addEventListener("click", function() {
-      document.body.requestFullscreen();
-  }, false);
-</script>
+
 <% @calendar.events.inject(nil) do |previous, event| %>
 <% if @calendar.next_event == event && ((@calendar.next_event.begin_time - DateTime.now) * 24 * 60).to_i <= 15 %>
   <div class="welcome-panel
