@@ -31,7 +31,7 @@
     </div>
 
     <div class="status">
-      <%= @calendar.available? ? "Woohoo! This room is currently available." : "Whoops! This room is currently in use." %>
+      <%= @calendar.available? ? "Woohoo! This room is currently available." : "Whoops! This room is currently unavailable." %>
     </div>
 
     <% @calendar.events.inject(nil) do |previous, event| %>
@@ -39,6 +39,7 @@
         <% if @calendar.current_event == event %>
           <%= event.client %>
           <%= event.check_event %>
+          <br />
           Next opening at
           <% if @calendar.next_event != nil && @calendar.after_event(@calendar.next_event) != nil && @calendar.after_event(@calendar.next_event).begin_time == @calendar.next_event.end_time %>
             <%= @calendar.after_event(@calendar.next_event).end_time.strftime("%l:%M %p") %>
