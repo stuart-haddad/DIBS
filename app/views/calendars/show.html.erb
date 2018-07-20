@@ -34,29 +34,31 @@
       <%= @calendar.available? ? "Woohoo! This room is currently available." : "Whoops! This room is currently unavailable." %>
     </div>
 
-    <% @calendar.events.inject(nil) do |previous, event| %>
-      <div class="nextOpening">
-        <% if @calendar.current_event == event %>
-          <%= event.client %>
-          <%= event.check_event %>
-          <br />
-          Next opening at
-          <% if @calendar.next_event != nil && @calendar.after_event(@calendar.next_event) != nil && @calendar.after_event(@calendar.next_event).begin_time == @calendar.next_event.end_time %>
-            <%= @calendar.after_event(@calendar.next_event).end_time.strftime("%l:%M %p") %>
-          <% elsif @calendar.next_event != nil && @calendar.current_event.end_time == @calendar.next_event.begin_time %>
-            <%= @calendar.next_event.end_time.strftime("%l:%M %p") %>
-          <% else %>
-            <%= @calendar.current_event.end_time.strftime("%l:%M %p") %>
+    <div class="nextBox">
+      <% @calendar.events.inject(nil) do |previous, event| %>
+        <div class="nextOpening">
+          <% if @calendar.current_event == event %>
+            <%= event.client %>
+            <%= event.check_event %>
+            <br />
+            Next opening at
+            <% if @calendar.next_event != nil && @calendar.after_event(@calendar.next_event) != nil && @calendar.after_event(@calendar.next_event).begin_time == @calendar.next_event.end_time %>
+              <%= @calendar.after_event(@calendar.next_event).end_time.strftime("%l:%M %p") %>
+            <% elsif @calendar.next_event != nil && @calendar.current_event.end_time == @calendar.next_event.begin_time %>
+              <%= @calendar.next_event.end_time.strftime("%l:%M %p") %>
+            <% else %>
+              <%= @calendar.current_event.end_time.strftime("%l:%M %p") %>
+            <% end %>
           <% end %>
-        <% end %>
-      </div>
+        </div>
 
-      <div class="nextMeeting">
-        <% if @calendar.next_event == event && @calendar.available?%>
-          Next meeting begins at <%= event.begin_time.strftime("%l:%M %p")%>.
-        <% end %>
-      </div>
-    <% end %>
+        <div class="nextMeeting">
+          <% if @calendar.next_event == event && @calendar.available?%>
+            Next meeting begins at <%= event.begin_time.strftime("%l:%M %p")%>.
+          <% end %>
+        </div>
+      <% end %>
+    </div>
 
     <div class="buttons">
       <% if @calendar.available? %>
