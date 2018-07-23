@@ -26,14 +26,14 @@ module EventHelper
   end
 
   def duration_to_px(seconds)
-    seconds.to_f / 3600 * 50
+    seconds.to_f / 3600 * 70
   end
 
   def seconds_to_px(seconds)
-    seconds.to_f / 3600 * 50 - calendar_starts_at
+    seconds.to_f / 3600 * 70 - calendar_starts_at
   end
 
   def calendar_starts_at
-    8 * 50
+    8 * 70
   end
 end

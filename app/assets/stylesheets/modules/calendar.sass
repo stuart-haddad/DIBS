@@ -1,8 +1,9 @@
 .mod-calendar
   position: relative
-  $distance: 25px
+  $distance: 35px
   padding-left: 20px
   top: 30px
+  margin-top: 20px
 
   &:after
     content: ""
@@ -12,7 +13,6 @@
     position: absolute
     left: 0
     bottom: 30px
-    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1))
     z-index: 1
 
   &:before
@@ -23,7 +23,6 @@
     position: absolute
     left: 0px
     top: -30px
-    background-image: linear-gradient(to top, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1))
     z-index: 1
 
   .now
@@ -74,11 +73,12 @@
         background-color: $green
 
   .meeting
+    font-size: 26px
     position: absolute
     background-color: rgba(12, 169, 227, 0.1)
     opacity: 0.8
-    margin-left: 50px
-    width: calc(100% - 50px)
+    margin-left: 75px
+    width: calc(100% - 75px)
     border-left: 3px rgba(12, 169, 227, 0.7) solid
     padding: 5px
     overflow: hidden
@@ -103,16 +103,17 @@
 
   .time
     position: absolute
+    font-size: 18px
     text-align: right
-    width: 40px
-    left: 10px
+    width: 50px
+    left: 8px
 
   .line
     height: 1px
     width: 100%
     background-color: $border-color
     position: absolute
-    margin-left: 50px
+    margin-left: 60px
 
   $calendar_starts_at: 8 * ($distance * 2)
 
@@ -124,4 +125,4 @@
       top: ($distance * 2 * $i) - $calendar_starts_at
 
     .time-#{$i}
-      top: ($distance * 2 * $i) - 8px - $calendar_starts_at
+      top: ($distance * 2 * $i) - 12px - $calendar_starts_at
