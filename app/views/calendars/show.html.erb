@@ -25,14 +25,15 @@
 <div class="mod-meeting-display <%= @calendar.available? ? "available" : "in_use" %>">
 
   <div class="mod-status">
-
     <div class="room-name">
       <% @calendar.location.slice!("TSE-2-") %>
       <h1><%= @calendar.location %></h1>
     </div>
 
     <div class="status">
-      <%= @calendar.available? ? "Woohoo! This room is currently available." : "Whoops! This room is currently unavailable." %>
+      <%= @calendar.exclamation %>
+      <br />
+      <%= @calendar.available? ? "This room is currently available." : "This room is currently unavailable." %>
     </div>
 
     <div class="nextBox">

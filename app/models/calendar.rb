@@ -39,6 +39,17 @@ class Calendar
     end
   end
 
+  def exclamation
+    positive = ["Woohoo!", "Aw yeah!", "Boo-yah!", "Huzzah!", "Shazam!"]
+    negative = ["Shucks!", "Oh no!", "Bummer!", "Dagnabbit!", "Good grief!"]
+    random = rand(5)
+    if in_use?
+      negative[random] + "\n"
+    else
+      positive[random] + "\n"
+    end
+  end
+
   def time_left(suffix: "")
     if in_use?
       if current_event.all_day?
