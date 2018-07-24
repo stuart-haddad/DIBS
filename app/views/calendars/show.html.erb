@@ -85,7 +85,7 @@
       <% end %>
     </div>
 
-    <div class="available-rooms">
+    <!-- <div class="available-rooms">
     <% if @other_available_calenders.present? %>
       <% @other_available_calenders.each do |c| %>
         <% available_for = c.next_event.blank? ? "the rest of the day" : c.time_left(suffix: "")%>
@@ -95,7 +95,7 @@
     <% else %>
       <p>No other rooms are available.</p>
     <% end %>
-    </div>
+    </div> -->
   </div>
 
 <div class="mod-calendar">
