@@ -14,7 +14,7 @@ window.onload = function() {
                         var confetticount = ($(this).width()/50)*10;
                         //Create random individual confetti pieces and append to dom
                         for(var i = 0; i <= confetticount; i++) {
-                         $(this).append('<span class="particle c' + $.rnd(1,2) + '" style="top:' + $.rnd(10,50) + '%; left:' + $.rnd(0,100) + '%;width:' + $.rnd(6,8) + 'px; height:' + $.rnd(3,4) + 'px;animation-delay: ' + ($.rnd(0,30)/10) + 's;"></span>');
+                         $(this).append('<span class="particle c' + $.rnd(1,3) + '" style="top:' + $.rnd(70,98) + '%; left:' + $.rnd(0,98) + '%;width:' + $.rnd(10,12) + 'px; height:' + $.rnd(5,6) + 'px;animation-delay: ' + ($.rnd(0,30)/10) + 's;"></span>');
                         }
                     });
                 }
