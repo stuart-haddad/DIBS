@@ -16,7 +16,7 @@
       <h1><%= event.welcome %><%= event.client %>.</h1>
       <p>Your meeting is in <%= @calendar.time_left %>.</p>
   </div>
-<% elsif @calendar.current_event != nil && ((DateTime.now - @calendar.current_event.begin_time) * 24 * 60) <=5 %>
+<% elsif @calendar.current_event != nil && ((DateTime.now - @calendar.current_event.begin_time) * 24 * 60) <=2 %>
   <div class="welcome-panel stay-there particletext confetti">
     <div class="X">
         <img src = "/ic-close.svg" id = "close-welcome-message">
