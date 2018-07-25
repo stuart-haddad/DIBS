@@ -11,20 +11,18 @@ window.onload = function() {
 	});
 
 	function confetti() {
-                    //For each confetti div
-                    $.each($(".particletext.confetti"), function(){
-                        //Calculate number of confetti pieces relative to the width of the container
-                        var confetticount = ($(this).width()/50)*10;
-                        //Create random individual confetti pieces and append to dom
-                        for(var i = 0; i <= confetticount; i++) {
-                         $(this).append('<span class="particle c' + $.rnd(1,3) + '" style="top:' + $.rnd(70,98) + '%; left:' + $.rnd(0,98) + '%;width:' + $.rnd(10,12) + 'px; height:' + $.rnd(5,6) + 'px;animation-delay: ' + ($.rnd(0,30)/10) + 's;"></span>');
-                        }
-                    });
-                }
-
-
-                //Call Confetti function when ready
-                confetti();
+  	//For each confetti div
+	  $.each($(".particletext.confetti"), function(){
+	      //Calculate number of confetti pieces relative to the width of the container
+	      var confetticount = ($(this).width()/50)*10;
+	      //Create random individual confetti pieces and append to dom
+	      for(var i = 0; i <= confetticount; i++) {
+	       $(this).append('<span class="particle c' + $.rnd(1,3) + '" style="top:' + $.rnd(75,98) + '%; left:' + $.rnd(0,98) + '%;width:' + $.rnd(10,12) + 'px; height:' + $.rnd(5,6) + 'px;animation-delay: ' + ($.rnd(0,30)/10) + 's;"></span>');
+	      }
+	  });
+  }
+	//Call Confetti function when ready
+	confetti();
 
 }
 // Random Number Function
