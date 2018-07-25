@@ -64,23 +64,23 @@
     <div class="buttons">
       <% if @calendar.available? %>
         <% if @calendar.next_event == nil %>
-          <%= link_to '<button name="30mButton" type="button" >BOOK NEXT 30 MINS</button>'.html_safe, book30_path(@calendar.calendar_id)%>
-          <%= link_to '<button name="1hrButton" type="button" >BOOK NEXT HOUR</button>'.html_safe, bookHour_path(@calendar.calendar_id)%>
+          <%= link_to '<button class="btnAddMeeting" name="30mButton" type="button" >BOOK NEXT 30 MINS</button>'.html_safe, book30_path(@calendar.calendar_id)%>
+          <%= link_to '<button class="btnAddMeeting" name="1hrButton" type="button" >BOOK NEXT HOUR</button>'.html_safe, bookHour_path(@calendar.calendar_id)%>
         <% else %>
           <% if ((@calendar.next_event.begin_time - DateTime.now) * 24 * 60).to_i >= 30 %>
-            <%= link_to '<button name="30mButton" type="button">BOOK NEXT 30 MINS</button>'.html_safe, book30_path(@calendar.calendar_id)%>
+            <%= link_to '<button class="btnAddMeeting" name="30mButton" type="button">BOOK NEXT 30 MINS</button>'.html_safe, book30_path(@calendar.calendar_id)%>
           <% else %>
-            <%= link_to '<button name="30mButton" type="button" disabled>BOOK NEXT 30 MINS</button>'.html_safe, book30_path(@calendar.calendar_id)%>
+            <%= link_to '<button class="btnAddMeeting" name="30mButton" type="button" disabled>BOOK NEXT 30 MINS</button>'.html_safe, book30_path(@calendar.calendar_id)%>
           <% end %>
           <% if ((@calendar.next_event.begin_time - DateTime.now) * 24 * 60).to_i  >= 60 %>
-            <%= link_to '<button name="1hrButton" type="button">BOOK NEXT HOUR</button>'.html_safe, bookHour_path(@calendar.calendar_id)%>
+            <%= link_to '<button class="btnAddMeeting" name="1hrButton" type="button">BOOK NEXT HOUR</button>'.html_safe, bookHour_path(@calendar.calendar_id)%>
           <% else %>
-            <%= link_to '<button name="1hrButton" type="button" disabled>BOOK NEXT HOUR</button>'.html_safe, bookHour_path(@calendar.calendar_id)%>
+            <%= link_to '<button class="btnAddMeeting" name="1hrButton" type="button" disabled>BOOK NEXT HOUR</button>'.html_safe, bookHour_path(@calendar.calendar_id)%>
           <% end %>
         <% end %>
       <% else %>
-        <%= link_to '<button name="30mButton" type="button" disabled>BOOK NEXT 30 MINS</button>'.html_safe, book30_path(@calendar.calendar_id)%>
-        <%= link_to '<button name="1hrButton" type="button" disabled>BOOK NEXT HOUR</button>'.html_safe, bookHour_path(@calendar.calendar_id)%>
+        <%= link_to '<button class="btnAddMeeting" name="30mButton" type="button" disabled>BOOK NEXT 30 MINS</button>'.html_safe, book30_path(@calendar.calendar_id)%>
+        <%= link_to '<button class="btnAddMeeting" name="1hrButton" type="button" disabled>BOOK NEXT HOUR</button>'.html_safe, bookHour_path(@calendar.calendar_id)%>
       <% end %>
     </div>
 

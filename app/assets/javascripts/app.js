@@ -6,6 +6,9 @@ window.onload = function() {
 		jQuery('.welcome-panel').removeClass('stay-there');
 		jQuery('.welcome-panel').removeClass('slide-out');
 	});
+	jQuery(".btnAddMeeting").click(function(){
+		jQuery(this).attr("disabled", true);
+	});
 
 	function confetti() {
                     //For each confetti div
@@ -25,8 +28,8 @@ window.onload = function() {
 
 }
 // Random Number Function
-            jQuery.rnd = function(m,n) {
-                  m = parseInt(m);
-                  n = parseInt(n);
-                  return Math.floor( Math.random() * (n - m + 1) ) + m;
-            }
+    jQuery.rnd = function(m,n) {
+          m = parseInt(m);
+          n = parseInt(n);
+          return Math.floor( Math.random() * (n - m + 1) ) + m;
+    }
