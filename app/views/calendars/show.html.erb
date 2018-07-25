@@ -1,31 +1,30 @@
 <% @calendar.events.inject(nil) do |previous, event| %>
-<% if @calendar.next_event == event && ((@calendar.next_event.begin_time - DateTime.now) * 24 * 60).to_i <= 15 %>
-  <div class="welcome-panel particletext confetti
-    <% if ((@calendar.next_event.begin_time - DateTime.now) * 24 * 60) >= 14.5 %>
-      animate-on-load
-    <% elsif ((@calendar.next_event.begin_time - DateTime.now) * 24 * 60).to_i >=0
-    %>
-      stay-there
-    <% end %>
-  ">
-    <div class="X">
-        <img src = "/ic-close.svg" id = "close-welcome-message">
+  <% if @calendar.next_event == event && ((@calendar.next_event.begin_time - DateTime.now) * 24 * 60).to_i <= 15 %>
+    <div class="welcome-panel particletext confetti
+      <% if ((@calendar.next_event.begin_time - DateTime.now) * 24 * 60) >= 14.5 %>
+        animate-on-load
+      <% elsif ((@calendar.next_event.begin_time - DateTime.now) * 24 * 60).to_i >=0%>
+        stay-there
+      <% end %>
+    ">
+      <div class="X">
+          <img src = "/ic-close.svg" id = "close-welcome-message">
+      </div>
+        <% @calendar.location.slice!("TSE-2-") %>
+        <h2><%= @calendar.location %></h2>
+        <h1><%= event.welcome %><%= event.client %>.</h1>
+        <p>Your meeting is in <%= @calendar.time_left %>.</p>
     </div>
-      <% @calendar.location.slice!("TSE-2-") %>
-      <h2><%= @calendar.location %></h2>
-      <h1><%= event.welcome %><%= event.client %>.</h1>
-      <p>Your meeting is in <%= @calendar.time_left %>.</p>
-  </div>
-<% elsif @calendar.current_event != nil && ((DateTime.now - @calendar.current_event.begin_time) * 24 * 60) <=2 %>
-  <div class="welcome-panel stay-there particletext confetti">
-    <div class="X">
-        <img src = "/ic-close.svg" id = "close-welcome-message">
+  <% elsif @calendar.current_event == event && ((DateTime.now - @calendar.current_event.begin_time) * 24 * 60) <=2 %>
+    <div class="welcome-panel animate-on-load stay-there particletext confetti">
+      <div class="X">
+          <img src = "/ic-close.svg" id = "close-welcome-message">
+      </div>
+        <% @calendar.location.slice!("TSE-2-") %>
+        <h2><%= @calendar.location %></h2>
+        <h1><%= event.welcome %><%= event.client %>.</h1>
+        <p>Your meeting is starting now!</p>
     </div>
-      <% @calendar.location.slice!("TSE-2-") %>
-      <h2><%= @calendar.location %></h2>
-      <h1><%= event.welcome %><%= event.client %>.</h1>
-      <p>Your meeting is starting now!</p>
-  </div>
   <% end %>
 <% end %>
 
