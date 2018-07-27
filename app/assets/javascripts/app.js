@@ -9,6 +9,7 @@ window.onload = function() {
 	});
 	jQuery(".btnAddMeeting").click(function(){
 		jQuery(this).attr("disabled", true);
+		jQuery('.welcome-panel').addClass('animate-on-load');
 	});
 
 	function confetti() {
@@ -24,11 +25,10 @@ window.onload = function() {
   }
 	//Call Confetti function when ready
 	confetti();
-
 }
 // Random Number Function
     jQuery.rnd = function(m,n) {
-          m = parseInt(m);
-          n = parseInt(n);
-          return Math.floor( Math.random() * (n - m + 1) ) + m;
+    	m = parseInt(m);
+      n = parseInt(n);
+      return Math.floor( Math.random() * (n - m + 1) ) + m;
     }

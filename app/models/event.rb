@@ -8,7 +8,6 @@ class Event
   attr_accessor :rejected
   attr_accessor :all_day
   attr_accessor :client
-  attr_accessor :check_event
   attr_accessor :welcome
   attr_accessor :meeting_event
 
@@ -23,7 +22,6 @@ class Event
       @organizer = parse_attendee(json.organizer)
       @rejected = parse_rejected(json.attendees)
       @client = parse_client(json.summary)
-      @check_event = parse_check_event(json.summary)
       @welcome = parse_welcome(json.summary)
       @meeting_event = parse_meeting_event(json.summary)
     end
@@ -38,7 +36,6 @@ class Event
       rejected: rejected,
       all_day: all_day,
       client: summary,
-      check_event: summary,
       welcome: summary,
       meeting_event: summary
     }
@@ -100,14 +97,6 @@ class Event
   def parse_client(summary)
     return '' if summary.blank?
     summary[/(?<=\[).+?(?=\])/]
-  end
-
-  def parse_check_event(summary)
-     if summary.include?("[") == false
-      return ''
-  else
-    return 'is currently in a meeting. '
-    end
   end
 
   def parse_welcome(summary)
