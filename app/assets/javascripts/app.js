@@ -1,4 +1,5 @@
 window.onload = function() {
+
 	//If animation is required on page load, add slide out class
 	jQuery('.animate-on-load').addClass('slide-out');
 	//On click of X, remove slide out class
@@ -7,9 +8,10 @@ window.onload = function() {
 		jQuery('.welcome-panel').removeClass('stay-there');
 		jQuery('.welcome-panel').removeClass('slide-out');
 	});
+	//On click of button, disable it and add the animate class
 	jQuery(".btnAddMeeting").click(function(){
+		console.log("BUTTON PRESSED");
 		jQuery(this).attr("disabled", true);
-		jQuery('.welcome-panel').addClass('animate-on-load');
 	});
 
 	function confetti() {

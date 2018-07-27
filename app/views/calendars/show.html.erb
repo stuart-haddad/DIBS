@@ -48,26 +48,6 @@
 
     <div class="detailsBox">
       <% @calendar.events.inject(nil) do |previous, event| %>
-          <% if @calendar.current_event == event && @calendar.in_use?%>
-          <div class="meetingInProgress">
-            <p> Happening in this room now:</p>
-            <strong><%= event.summary %></strong>
-          </div>
-          <% end %>
-
-          <% if @calendar.current_event == event %>
-            <div class="nextOpening">
-              Next opening at
-              <% if @calendar.next_event != nil && @calendar.after_event(@calendar.next_event) != nil && @calendar.after_event(@calendar.next_event).begin_time == @calendar.next_event.end_time %>
-                <%= @calendar.after_event(@calendar.next_event).end_time.strftime("%l:%M %p") %>
-              <% elsif @calendar.next_event != nil && @calendar.current_event.end_time == @calendar.next_event.begin_time %>
-                <%= @calendar.next_event.end_time.strftime("%l:%M %p") %>
-              <% else %>
-                <%= @calendar.current_event.end_time.strftime("%l:%M %p") %>
-              <% end %>
-            </div>
-          <% end %>
-
           <% if @calendar.next_event == event && @calendar.available?%>
             <div class="nextMeeting">
               Next meeting begins at <%= event.begin_time.strftime("%l:%M %p")%>.
@@ -89,8 +69,23 @@
             <%= link_to '<button class="btnAddMeeting" name="1hrButton" type="button">BOOK NEXT HOUR</button>'.html_safe, bookHour_path(@calendar.calendar_id)%>
           <% end %>
         <% end %>
-      <% end %>
+      <% end %>    
     </div>
+
+    <% @calendar.events.inject(nil) do |previous, event| %>
+      <% if @calendar.current_event == event %>
+        <div class="nextOpening">
+          Next opening at
+          <% if @calendar.next_event != nil && @calendar.after_event(@calendar.next_event) != nil && @calendar.after_event(@calendar.next_event).begin_time == @calendar.next_event.end_time %>
+            <%= @calendar.after_event(@calendar.next_event).end_time.strftime("%l:%M %p") %>
+          <% elsif @calendar.next_event != nil && @calendar.current_event.end_time == @calendar.next_event.begin_time %>
+            <%= @calendar.next_event.end_time.strftime("%l:%M %p") %>
+          <% else %>
+            <%= @calendar.current_event.end_time.strftime("%l:%M %p") %>
+          <% end %>
+        </div>
+      <% end %>
+    <% end %>
 
     <!-- <div class="available-rooms">
     <% if @other_available_calenders.present? %>
