@@ -196,24 +196,26 @@
     margin-top: 25px
     margin-left: 50px
 
+  .btnContainer
+    display: inline-block
+    height: 65px
+    width: 225px
+    margin-right: 20px
+    text-align: center
+    vertical-align: middle
+
   button
     color: #09AB92
-    float: left
     font-size: 18px
     font-weight: bold
     padding: 15px
     height: 65px
     width: 225px
     border-radius: 5px
-    margin-right: 20px
     background-color: #FFFFFF
-    border-style: none
+    transition: all 0.25s ease
 
-  button:active
-    border: none
-    background-color: #CFD8DC
-
-  button:disabled
+  &:disabled
     border: none
 
     .available &
@@ -223,3 +225,21 @@
     .in_use &
       color: #FF2500
       background-color: #CC1E00
+
+  .onclic
+    width: 65px
+    background-color: $green
+    border: 8px solid #FFFFFF
+    font-size: 0
+    margin: auto
+    animation: rotating 2s 0.25s linear infinite
+    &:before
+      content: ""
+    &:after
+      content: ""
+
+  @keyframes rotating
+    from
+      transform: rotate(0deg)
+    to
+      transform: rotate(360deg)

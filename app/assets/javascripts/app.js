@@ -28,6 +28,14 @@ window.onload = function() {
 	//Call Confetti function when ready
 	confetti();
 }
+
+//Button Feedback
+$(function() {
+  $(".btnAddMeeting").click(function() {
+    $(this).addClass("onclic", 250);
+  });
+});
+
 // Random Number Function
     jQuery.rnd = function(m,n) {
     	m = parseInt(m);
