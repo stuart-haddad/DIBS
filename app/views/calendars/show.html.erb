@@ -76,6 +76,11 @@
               <%= link_to '<button class="btnAddMeeting" name="1hrButton" type="button">BOOK NEXT HOUR</button>'.html_safe, bookHour_path(@calendar.calendar_id)%>
             </div>
           <% end %>
+          <% if ((@calendar.next_event.begin_time - DateTime.now) * 24 * 60).to_i  < 30 %>
+            <div class="btnContainer">
+              <%= link_to '<button class="btnBookAvailable" name="BookTilNext" type="button">BOOK AVAILABLE TIME</button>'.html_safe, bookTil_path(@calendar.calendar_id)%>
+            </div>
+          <% end %>
         <% end %>
       <% end %>
     </div>

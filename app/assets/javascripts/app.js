@@ -34,6 +34,9 @@ $(function() {
   $(".btnAddMeeting").click(function() {
     $(this).addClass("onclic", 250);
   });
+	$(".btnBookAvailable").click(function() {
+    $(this).addClass("onclic", 250);
+  });
 });
 
 // Random Number Function

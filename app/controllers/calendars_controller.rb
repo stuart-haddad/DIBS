@@ -18,7 +18,7 @@ class CalendarsController < ApplicationController
   	 event = Google::Apis::CalendarV3::Event.new({
       'summary': 'Impromptu 1-hour Meeting',
       'location': '212 S. 14th Street, Baton Rouge, LA',
-      'description': 'TSE impromptu meeting.',
+      'description': 'Created by the TSE Meeting Room App',
       'start': {
         'date_time': DateTime.now,
         'time_zone': 'America/Chicago',
@@ -40,7 +40,7 @@ class CalendarsController < ApplicationController
      event = Google::Apis::CalendarV3::Event.new({
       'summary': 'Impromptu 30-minute Meeting',
       'location': '212 S. 14th Street, Baton Rouge, LA',
-      'description': 'TSE impromptu meeting.',
+      'description': 'Created by the TSE Meeting Room App',
       'start': {
         'date_time': DateTime.now,
         'time_zone': 'America/Chicago',
@@ -50,7 +50,27 @@ class CalendarsController < ApplicationController
         'time_zone': 'America/Chicago',
       },
     })
+     @calendar.add_event(params[:id],event)
+     redirect_to calendar_path
+  end
 
+  def bookTilNext
+     google_auth = GoogleCalendar.new(request: request)
+     @calendar = google_auth.calendar_for_today(params[:id])
+
+     event = Google::Apis::CalendarV3::Event.new({
+      'summary': 'Impromptu Meeting',
+      'location': '212 S. 14th Street, Baton Rouge, LA',
+      'description': 'Created by the TSE Meeting Room App',
+      'start': {
+        'date_time': DateTime.now,
+        'time_zone': 'America/Chicago',
+      },
+      'end': {
+        'date_time': @calendar.next_event.begin_time,
+        'time_zone': 'America/Chicago',
+      },
+    })
      @calendar.add_event(params[:id],event)
      redirect_to calendar_path
   end

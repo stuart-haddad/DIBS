@@ -204,7 +204,7 @@
     text-align: center
     vertical-align: middle
 
-  button
+  .btnAddMeeting
     color: #09AB92
     font-size: 18px
     font-weight: bold
@@ -215,16 +215,16 @@
     background-color: #FFFFFF
     transition: all 0.25s ease
 
-  &:disabled
-    border: none
-
-    .available &
-      color: #09AB92
-      background-color: #088E7A
-
-    .in_use &
-      color: #FF2500
-      background-color: #CC1E00
+  .btnBookAvailable
+    color: #09AB92
+    font-size: 18px
+    font-weight: bold
+    padding: 15px
+    height: 65px
+    width: 400px
+    border-radius: 5px
+    background-color: #FFFFFF
+    transition: all 0.25s ease
 
   .onclic
     width: 65px
@@ -232,7 +232,7 @@
     border: 8px solid #FFFFFF
     font-size: 0
     margin: auto
-    animation: rotating 2s 0.25s linear infinite
+    animation: rotating 1.5s 0.25s linear infinite
     &:before
       content: ""
     &:after

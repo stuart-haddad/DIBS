@@ -15,6 +15,7 @@ Rails.application.routes.draw do
 
   get "calendars/bookNextHour/:id", to: "calendars#bookNextHour", as: "bookHour", constraints: { id: /[0-z\.]+/ }
   get "calendars/bookNext30Minutes/:id", to: "calendars#bookNext30Minutes", as: "book30", constraints: { id: /[0-z\.]+/ }
+    get "calendars/bookTilNext/:id", to: "calendars#bookTilNext", as: "bookTil", constraints: { id: /[0-z\.]+/ }
 
   scope "api" do
     constraints format: :json do
