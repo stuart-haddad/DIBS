@@ -16,7 +16,7 @@
           <% if event.client != nil %>
             <%= event.client %>.
           <% else %>
-            <span style="font-size: 50%; margin-top: 5%;"><%= event.summary %></span>
+            <br><span style="font-size: 50%; margin-top: 5%;"><%= event.summary %></span>
           <% end %>
         </h1>
         <p>Your meeting is in <%= @calendar.time_left %>.</p>
@@ -36,7 +36,7 @@
           <% if event.client != nil %>
             <%= event.client %>.
           <% else %>
-            <span style="font-size: 50%; margin-top: 5%;"><%= event.summary %></span>
+            <br><span style="font-size: 50%; margin-top: 5%;"><%= event.summary %></span>
           <% end %>
         </h1>
         <p>Your meeting is starting now!</p>
