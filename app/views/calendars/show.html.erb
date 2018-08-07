@@ -12,10 +12,16 @@
       </div>
         <% @calendar.location.slice!("TSE-2-") %>
         <h2><%= @calendar.location %></h2>
-        <h1><%= event.welcome %><%= event.client %>.</h1>
+        <h1><%= event.welcome %>
+          <% if event.client != nil %>
+            <%= event.client %>.
+          <% else %>
+            <span style="font-size: 50%; margin-top: 5%;"><%= event.summary %></span>
+          <% end %>
+        </h1>
         <p>Your meeting is in <%= @calendar.time_left %>.</p>
     </div>
-  <% elsif @calendar.current_event == event && ((DateTime.now - @calendar.current_event.begin_time) * 24 * 60) <=3 %>
+  <% elsif @calendar.current_event == event && ((DateTime.now - @calendar.current_event.begin_time) * 24 * 60) <= 6 %>
     <div class="welcome-panel animate-on-load particletext confetti
       <% if ((DateTime.now - @calendar.current_event.begin_time) * 24 * 60) >=1 %>
         stay-there
@@ -26,7 +32,13 @@
       </div>
         <% @calendar.location.slice!("TSE-2-") %>
         <h2><%= @calendar.location %></h2>
-        <h1><%= event.welcome %><%= event.client %>.</h1>
+        <h1><%= event.welcome %>
+          <% if event.client != nil %>
+            <%= event.client %>.
+          <% else %>
+            <span style="font-size: 50%; margin-top: 5%;"><%= event.summary %></span>
+          <% end %>
+        </h1>
         <p>Your meeting is starting now!</p>
     </div>
   <% end %>
