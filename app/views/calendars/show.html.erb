@@ -1,3 +1,4 @@
+<% require 'date' %>
 <% @calendar.events.inject(nil) do |previous, event| %>
   <% if @calendar.next_event == event && ((@calendar.next_event.begin_time - DateTime.now) * 24 * 60).to_i <= 15 %>
     <div class="welcome-panel particletext confetti
@@ -53,9 +54,211 @@
     </div>
 
     <div class="status">
-      <%= @calendar.exclamation %>
-      <br />
-      <%= @calendar.available? ? "This room is currently available." : "This room is currently unavailable." %>
+      <% d = DateTime.now.strftime("%d/%m") %>
+        <%# Shelby's Workiversary %>
+        <% if d == "04/01" %> 
+          <%= "Happy Workiversary, Shelby!" %>
+          </br>
+          <% specialDay = true %>
+
+        <%# Tara's Birthday %>
+        <% elsif d == "15/01" %>
+          <%= "Happy Birthday, Tara!" %>
+          </br>
+          <% specialDay = true %>
+
+
+        <%# Ebony's Birthday %>
+        <% elsif d == "19/01" %>
+          <%= "Happy Birthday, Ebony!" %>
+          </br>
+          <% specialDay = true %>
+
+        <%# Raina's Birthday %>
+        <% elsif d == "21/01" %>
+          <%= "Happy Birthday, Raina!" %>
+          </br>
+          <% specialDay = true %>
+
+        <%# Nick's Birthday %>
+        <% elsif d == "27/01" %>
+          <%= "Happy Birthday, Nick!" %>
+          </br>
+          <% specialDay = true %>
+
+        <%# Corey's Workiversary %>
+        <% elsif d == "15/02" %>
+          <%= "Happy Workiversary, Corey!" %>
+          </br>
+          <% specialDay = true %>
+
+        <%# Maxel's Birthday %>
+        <% elsif d == "18/02" %>
+          <%= "Happy Birthday, Maxel!" %>
+          </br>
+          <% specialDay = true %>
+
+        <%# Philip's Birthday %>
+        <% elsif d == "25/02" %>
+          <%= "Happy Birthday, Philip!" %>
+          </br>
+          <% specialDay = true %>
+
+        <%# Corey's Birthday %>
+        <% elsif d == "12/03" %>
+          <%= "Happy Birthday, Corey!" %>
+          </br>
+          <% specialDay = true %>
+
+        <%# TSE's Birthday %>
+        <% elsif d == "01/03" %>
+          <%= "Happy Birthday, ThreeSixtyEight!!!" %>
+          </br>
+          <% specialDay = true %>
+
+        <%# Kara's Birthday %>
+        <% elsif d == "18/04" %>
+          <%= "Happy Birthday, Kara!" %>
+          </br>
+          <% specialDay = true %>
+
+        <%# Sherin's Birthday %>
+        <% elsif d == "06/05" %>
+          <%= "Happy Birthday, Sherin!" %>
+          </br>
+          <% specialDay = true %>
+
+        <%# Tara's Workiversary %>
+        <% elsif d == "11/05" %>
+          <%= "Happy Workiversary, Tara!" %>
+          </br>
+          <% specialDay = true %>
+
+        <%# Bo's Workiversary %>
+        <% elsif d == "16/05" %>
+          <%= "Happy Workiversary, Bo!" %>
+          </br>
+          <% specialDay = true %>
+
+        <%# Jeremy's Birthday and Justin's Workiversary %>
+        <% elsif d == "22/05" %>
+          <%= "Happy Birthday, Jeremy!" %>
+          <%= "Happy Workiversary, Justin!" %>
+          </br>
+          <% specialDay = true %>
+
+        <%# Jay's Birthday %>
+        <% elsif d == "1/06" %>
+          <%= "Happy Birthday, Jay!" %> 
+          </br>
+          <% specialDay = true %>
+
+        <%# Shelby's Birthday %>
+        <% elsif d == "2/06" %>
+          <%= "Happy Birthday, Shelby!" %> 
+          </br>
+          <% specialDay = true %>
+
+        <%# Gus's Birthday %>
+        <% elsif d == "14/06" %>
+          <%= "Happy Birthday, Gus!" %> 
+          </br>
+          <% specialDay = true %>  
+
+        <%# Bo's Birthday %>
+        <% elsif d == "12/08" %>
+          <%= "Happy Birthday, Bo!" %> 
+          </br>
+          <% specialDay = true %>
+
+        <%# Adam's Birthday %>
+        <% elsif d == "20/08" %>
+          <%= "Happy Birthday, Adam!" %> 
+          </br>
+          <% specialDay = true %>
+
+        <%# Ebony's Workiverary %>
+        <% elsif d == "21/08" %>
+          <%= "Happy Workiversary, Ebony!" %> 
+          </br>
+          <% specialDay = true %>
+
+        <%# Adam's Workiversary %>
+        <% elsif d == "29/08" %>
+          <%= "Happy Workiversary, Adam!" %> 
+          </br>
+          <% specialDay = true %>
+
+        <%# Kenny's Birthday %>
+        <% elsif d == "2/09" %>
+          <%= "Happy Birthday, Kenny!" %> 
+          </br>
+          <% specialDay = true %>
+
+        <%# Jay's Workiversary %>
+        <% elsif d == "19/09" %>
+          <%= "Happy Workiversary, Jay!" %>     
+          </br>
+          <% specialDay = true %>
+
+        <%# Phil's Workiversary %>
+        <% elsif d == "25/09" %>
+          <%= "Happy Workiversary, Phil!" %> 
+          </br>
+          <% specialDay = true %>
+
+        <%# Kara's Workiversary %>
+        <% elsif d == "26/09" %>
+          <%= "Happy Workiversary, Kara!" %> 
+          </br>
+          <% specialDay = true %>
+
+        <%# Sahil's Workiversary %>
+        <% elsif d == "01/11" %>
+        <%= "Happy Birthday, Sahil!" %> 
+        </br>
+          <% specialDay = true %>
+
+        <%# Dusty's Birthday %>
+        <% elsif d == "05/11" %>
+          <%= "Happy Birthday, Dusty!" %> 
+          </br>
+          <% specialDay = true %>
+
+        <%# Maxel's Birthday %>
+        <% elsif d == "01/12" %>
+          <%= "Happy Workiversary, Maxel!" %> 
+          </br>
+          <% specialDay = true %>
+
+        <%# Justin's Birthday %>
+        <% elsif d == "05/12" %>
+          <%= "Happy Birthday, Justin!" %> 
+          </br>
+          <% specialDay = true %>
+
+        <%# Alex's Workiversary %>
+        <% elsif d == "20/12" %>
+          <%= "Happy Workiversary, Alex!" %> 
+          </br>
+          <% specialDay = true %>
+
+        <% else %>
+          <%= @calendar.available? ? "This room is currently available." : "This room is currently unavailable." %> 
+          <% specialDay = false %>
+        <% end %>
+
+        <% if specialDay == true %>
+          <% if @calendar.available? %>
+              <img src = "/greenCarlton.gif" id = "carlton">
+            <% else %>
+              <img src = "/redCarlton.gif" id = "carlton">
+            <% end %>
+        <% end %>
+        </br>  
+        <h1> <%= @calendar.exclamation %> 
+            </br>
+            <%= @calendar.available? ? "This room is currently available." : "This room is currently unavailable." %> </h1>
     </div>
 
     <div class="detailsBox">
@@ -96,6 +299,8 @@
         <% end %>
       <% end %>
     </div>
+
+
 
     <% @calendar.events.inject(nil) do |previous, event| %>
       <% if @calendar.current_event == event %>

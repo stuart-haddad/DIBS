@@ -48,6 +48,11 @@
     display: inline-block
     line-height: 73px
 
+#carlton
+  height: 80%
+  width: auto
+  margin-left: 50%
+
 .slide-out
   transform: translateX(0%)
 
@@ -146,6 +151,8 @@
     h1
       display: block
       font-size: 30px
+      line-height: 10px
+
 
   .status
     font-size: 80px
@@ -156,7 +163,6 @@
     margin-left: 50px
     margin-top: 35px
     text-align: left
-    line-height: 90px
     font-family: $font-family-header
 
   .in_use &
@@ -177,11 +183,16 @@
   .nextMeeting,
   .meetingInProgress
     display: block
-    font-size: 26px
+    position: relative
+    top: 300px
+    padding-top: 25px
+    font-size: 32px
     margin-left: 50px
 
   .nextOpening
     display: block
+    position: relative
+    top: 250px
     padding-top: 25px
     font-size: 32px
     margin-left: 50px
@@ -200,6 +211,8 @@
     width: 500px
     margin-top: 25px
     margin-left: 50px
+    position: relative
+    top: 300px
 
   .btnContainer
     display: inline-block
@@ -250,3 +263,5 @@
       transform: rotate(0deg)
     to
       transform: rotate(360deg)
+
+
