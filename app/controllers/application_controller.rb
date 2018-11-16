@@ -9,6 +9,6 @@ class ApplicationController < ActionController::Base
   end
 
   def default_headers
-	  headers['X-Frame-Options'] = 'allow-from http://signage-assets.screen.cloud'
+	  headers['X-Frame-Options'] = 'allow-from http://screen.cloud'
 	end
 end
