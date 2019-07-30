@@ -32,10 +32,12 @@ window.onload = function() {
 //Button Feedback
 $(function() {
   $(".btnAddMeeting").click(function() {
-    $(this).addClass("onclic", 250);
+	$(this).addClass("tapped", 250);
+	$(this).html('');
   });
 	$(".btnBookAvailable").click(function() {
-    $(this).addClass("onclic", 250);
+	$(this).addClass("tapped", 250);
+	$(this).html('');
   });
 });
 
