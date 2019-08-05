@@ -4,6 +4,7 @@ module EventHelper
     classes << "current" if calendar.current_event == event
     classes << "rejected" if event.rejected
     classes << "overlapping" if event.overlapping?
+    classes << "short" if (event.duration.to_i / 60) <= 15
     classes.join(" ")
   end
 
