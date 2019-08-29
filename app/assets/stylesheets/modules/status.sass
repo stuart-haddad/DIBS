@@ -211,46 +211,41 @@
       font-size: 26px
 
   .buttons
-    display: block
+    display: flex
     width: 500px
     margin-top: 25px
     margin-left: 50px
     position: relative
+    align-items: center
 
   .btnContainer
-    display: inline-block
+    display: inline-flex
     height: 65px
-    width: 225px
     margin-right: 20px
-    text-align: center
-    vertical-align: middle
+    justify-content: center
+    align-items: center
+    min-width: 225px
+
+  .btnAddMeeting, .btnBookAvailable
+    color: #09AB92
+    font-size: 18px
+    font-weight: bold
+    padding: 15px
+    height: 65px
+    border: none
+    border-radius: 5px
+    background-color: #FFFFFF
+    transition: all 0.25s ease
+    overflow: hidden
 
   .btnAddMeeting
-    color: #09AB92
-    font-size: 18px
-    font-weight: bold
-    padding: 15px
-    height: 65px
     width: 225px
-    border-radius: 5px
-    background-color: #FFFFFF
-    transition: all 0.25s ease
-
   .btnBookAvailable
-    color: #09AB92
-    font-size: 18px
-    font-weight: bold
-    padding: 15px
-    height: 65px
     width: 400px
-    border-radius: 5px
-    background-color: #FFFFFF
-    transition: all 0.25s ease
 
-  .onclic
+  .tapped
     width: 40px
     background-color: #FFFFFF
-    border: 6px solid #FFFFFF
     font-size: 0
     margin: auto
     animation: rotating 1.5s 0.25s linear infinite
