@@ -1,3 +1,13 @@
+ThreeSixtyEight DIBS Quick Start:
+
+1. Clone repository and navigate to it in the terminal.
+2. Run 'bundle install' to install all ruby gems.
+2. Run 'brew install redis' to install Redis for our database.
+3. Start a rails server by typing 'rails s' in the terminal
+4. Start a redis server by typeing 'redis-server' in the terminal
+5. Open a web browser and enter localhost:3000 in the address bar. YOU'VE DONE IT!
+
+
 # Ultimaker meeting room display
 
 We ([@jankeesvw](https://github.com/jankeesvw), [@davycardinaal](https://github.com/davycardinaal) and 
