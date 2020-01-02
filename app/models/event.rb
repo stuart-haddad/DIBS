@@ -100,10 +100,10 @@ class Event
   end
 
   def parse_welcome(summary)
-     if summary.include?("[") == false
+    if summary.nil? || summary.include?("[") == false
       return "Welcome!" 
-  else
-    return "Welcome, "
+    else
+      return "Welcome, "
     end
   end
 
