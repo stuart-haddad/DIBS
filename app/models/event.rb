@@ -100,7 +100,7 @@ class Event
   end
 
   def parse_welcome(summary)
-    if summary.nil? || summary.include?("[") == false
+    if summary.nil? || !summary.include?("[")
       return "Welcome!" 
     else
       return "Welcome, "
@@ -108,7 +108,7 @@ class Event
   end
 
   def parse_meeting_event(summary)
-    if summary.include?("[") == false
+    if summary.nil? || !summary.include?("[")
       return 'Next opening is at'
     else
       return ', next opening is at'
