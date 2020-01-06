@@ -30,6 +30,47 @@ class Calendar
     @cal_result = @calendar_service.insert_event(calendar_id, event)
   end
 
+  def celebration
+    d = DateTime.now.strftime("%d/%m")
+    celebrationMessage = ""
+    celebrations = {
+        "04/01" => "Happy Workiversary, Shelby!",
+        "15/01" => "Happy Birthday, Tara!",
+        "19/01" => "Happy Birthday, Ebony!",
+        "21/01" => "Happy Birthday, Raina!",
+        "27/01" => "Happy Birthday, Nick!",
+        "15/02" => "Happy Workiversary, Corey!",
+        "18/02" => "Happy Birthday, Maxel!",
+        "25/02" => "Happy Birthday, Philip!",
+        "12/03" => "Happy Birthday, Corey!",
+        "01/03" => "Happy Birthday, ThreeSixtyEight!!!",
+        "18/04" => "Happy Birthday, Kara!",
+        "06/05" => "Happy Birthday, Sherin!",
+        "11/05" => "Happy Workiversary, Tara!",
+        "16/05" => "Happy Workiversary, Bo!",
+        "22/05" => "HBD, Jeremy! HW, Justin!" ,
+        "02/06" => "Happy Birthday, Shelby!",
+        "14/06" => "Happy Birthday, Gus!",
+        "20/08" => "Happy Birthday, Adam!",
+        "21/08" => "Happy Workiversary, Ebony!",
+        "29/08" => "Happy Workiversary, Adam!",
+        "02/09" => "Happy Birthday, Kenny!",
+        "25/09" => "Happy Workiversary, Phil!",
+        "26/09" => "Happy Workiversary, Kara!",
+        "04/10" => "Happy Birthday, Sahil!",
+        "01/11" => "Happy Workiversary, Sahil!",
+        "29/11" => "Happy Birthday, Stu!",
+        "01/12" => "Happy Workiversary, Maxel!",
+        "05/12" => "Happy Birthday, Justin!"
+    }
+    celebrations.each do |date, message| 
+      if d == date 
+        celebrationMessage = message
+      end
+    end
+    celebrationMessage
+  end 
+
   def description
     if in_use?
       "This room is used by #{current_event.organizer} " \
