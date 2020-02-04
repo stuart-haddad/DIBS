@@ -48,13 +48,33 @@
 <div class="mod-meeting-display <%= @calendar.available? ? "available" : "in_use" %>">
 
   <div class="mod-status">
-    <div class="room-name">
+    <div class="status-header">
       <% @calendar.location.slice!("TSE-1-") %>
       <% @calendar.location.slice!("TSE-2-") %>
-      <h1>Dibs.</h1>
-      <h2><%= @calendar.location %></h2>
+      <svg xmlns="http://www.w3.org/2000/svg" width="180" height="60" viewBox="0 0 295.208 81.865">
+        <g id="dibs-logo-group" data-name="Group 22" transform="translate(-144.336 -2319.74)">
+          <g id="dibs." style="isolation: isolate">
+            <g id="Group_28" data-name="Group 28" style="isolation: isolate">
+              <path id="Path_102" data-name="Path 102" d="M276.747,2385.3a13.605,13.605,0,0,1-12.319,7.128c-13.2-.264-19.1-10.3-19.1-22.528-.264-11.263,5.9-22,18.3-22,4.575,0,9.239,1.495,11.263,5.808v-26.751h13.9v51.214c0,3.431-.176,4.927,3.607,4.927v8.1c-5.367,1.145-15.663,2.729-15.663-5.367Zm-2.288-15.488c0-5.368-2.464-9.591-6.951-9.591-4.929,0-7.216,4.047-7.216,9.679,0,5.72,2.464,9.416,7.479,9.327C272.348,2379.232,274.459,2375.185,274.459,2369.817Z"/>
+              <path id="Path_103" data-name="Path 103" d="M308.427,2329.515c4.311,0,8.712,2.815,8.712,8.447,0,5.72-4.4,8.536-8.712,8.536s-8.624-2.816-8.624-8.536C299.8,2332.33,304.115,2329.515,308.427,2329.515Zm7.479,62.214H300.947l.088-41.8h14.871Z"/>
+              <path id="Path_104" data-name="Path 104" d="M340.018,2354.682c3.08-4.489,6.248-5.9,11.616-5.9,8.447,0,18.127,6.6,17.863,22-.265,16.455-11.88,22.615-24.815,22.176a49.855,49.855,0,0,1-18.392-3.872v-61.158h13.728Zm.879,25.255a23.3,23.3,0,0,0,5.281.792c4.927,0,8.183-2.728,8.271-9.856.264-4.576-1.672-9.68-7.04-9.68-4.928,0-6.512,5.808-6.512,9.68Z"/>
+              <path id="Path_105" data-name="Path 105" d="M390,2378.265c0,2.728,2.464,3.784,4.928,3.784s4.927-1.144,4.927-3.344c0-2.64-2.288-2.992-4.664-3.256-8.359-.968-19.094-2.552-19.094-12.935,0-9.857,9.415-14.432,18.919-14.432,9.679,0,19.183,5.1,18.744,14.432H400.648c-.263-2.113-2.815-3.256-5.279-3.168-2.376.088-4.488,1.055-4.488,2.815-.264,2.641,2.9,2.729,4.928,2.992,9.416.968,19.447,2.288,19.183,13.552-.263,9.592-9.767,14.256-19.447,14.256s-19.888-2.465-20.151-14.7Z"/>
+              <path id="Path_106" data-name="Path 106" d="M422.12,2385.3c0-4.928,3.872-8.1,8.712-8.1,4.928,0,8.712,3.168,8.712,8.1s-3.784,8.008-8.712,8.008C425.992,2393.313,422.12,2390.232,422.12,2385.3Z"/>
+            </g>
+          </g>
+          <g id="Group_19" data-name="Group 19">
+            <path id="Path_20" data-name="Path 20" d="M168.969,2373.4v-.1a17.751,17.751,0,1,1,35.4-2.7,2.255,2.255,0,0,0,4.5-.3,22.273,22.273,0,0,0-44.4,3.6v.2a42.455,42.455,0,0,0,8.2,21.6,2.249,2.249,0,0,0,2,.9,2.844,2.844,0,0,0,1.2-.4,2.242,2.242,0,0,0,.5-3.1A37.837,37.837,0,0,1,168.969,2373.4Z"/>
+            <path id="Path_21" data-name="Path 21" d="M208.069,2388.1a17.663,17.663,0,0,1-19.085-16.116c-.006-.061-.01-.123-.015-.184a2.255,2.255,0,0,0-4.5.3,22.291,22.291,0,0,0,24,20.4,2.31,2.31,0,0,0,2.1-2.4A2.39,2.39,0,0,0,208.069,2388.1Z"/>
+            <path id="Path_22" data-name="Path 22" d="M155.069,2336.2a47.657,47.657,0,0,1,59.5-2.9,2.149,2.149,0,0,0,1.5.4,2.605,2.605,0,0,0,1.6-.9,2.228,2.228,0,0,0-.5-3.1,52.045,52.045,0,0,0-65.1,3.1,2.267,2.267,0,1,0,3,3.4Z"/>
+            <path id="Path_23" data-name="Path 23" d="M183.269,2329.8a42.411,42.411,0,0,0-38.8,45.6,2.255,2.255,0,1,0,4.5-.3,37.773,37.773,0,1,1,75.3-6.1h0a2.255,2.255,0,0,0,4.5-.3A42.387,42.387,0,0,0,183.269,2329.8Z"/>
+            <path id="Path_24" data-name="Path 24" d="M184.069,2339.8a32.357,32.357,0,0,0-29.6,34.8v.2a55.022,55.022,0,0,0,2.7,12.8,2.174,2.174,0,0,0,2.3,1.5c.2,0,.4-.1.6-.1a2.269,2.269,0,0,0,1.406-2.883l-.006-.017a47.584,47.584,0,0,1-2.5-11.9v-.1a27.737,27.737,0,1,1,55.3-4.4v.1a7.778,7.778,0,0,1-15.5,1.3v-.1a12.187,12.187,0,0,0-24.3,1.9h0v.3a32.237,32.237,0,0,0,23.8,28.3,2.215,2.215,0,0,0,.8.1,2.3,2.3,0,0,0,.4-4.5,27.983,27.983,0,0,1-20.6-24.6v-.1a7.778,7.778,0,0,1,15.5-1.3v.1a12.241,12.241,0,0,0,24.4-2v-.2A32.268,32.268,0,0,0,184.069,2339.8Z"/>
+          </g>
+        </g>
+      </svg>
+      <h2 class="room-name"><%= @calendar.location %></h2>
     </div>
 
+    <div class="status-container">
     <div class="status">
 
       <% specialDay = !@calendar.celebration.empty? %>
@@ -67,9 +87,8 @@
         <% end %>
 
       <% if !specialDay %>
-        <%= @calendar.exclamation %>
-        <br />
-        <%= @calendar.available? ? "This room is currently available." : "This room is currently unavailable." %>
+        <h2 class="exclamation"><%= @calendar.exclamation %></h2>
+        <h3 class="status-description"><%= @calendar.available? ? @calendar.location + " is currently available." : @calendar.location + " is currently unavailable." %></h3>
         <% specialDay = false %>
       <% end %>
 
@@ -95,29 +114,33 @@
       <% end %>
     </div>
 
-    <div class="buttons">
+    <div class="action-header">
+      <h4 class="action-text">Call Dibs on this room</h4>
+    </div>
+
+    <div class="button-container">
       <% if @calendar.available? %>
         <% if @calendar.next_event == nil %>
-            <div class="btnContainer">
-              <%= link_to '<button class="btnAddMeeting" name="30mButton" type="button" >BOOK NEXT 30 MINS</button>'.html_safe, book30_path(@calendar.calendar_id)%>
+            <div class="btn-box">
+              <%= link_to '<button class="btnAddMeeting" name="30mButton" type="button"><span>30 MINUTES</span></button>'.html_safe, book30_path(@calendar.calendar_id)%>
             </div>
-            <div class="btnContainer">
-              <%= link_to '<button class="btnAddMeeting" name="1hrButton" type="button" >BOOK NEXT HOUR</button>'.html_safe, bookHour_path(@calendar.calendar_id)%>
+            <div class="btn-box">
+              <%= link_to '<button class="btnAddMeeting" name="1hrButton" type="button"><span>1 HOUR</span></button>'.html_safe, bookHour_path(@calendar.calendar_id)%>
             </div>
         <% else %>
           <% if ((@calendar.next_event.begin_time - DateTime.now) * 24 * 60).to_i >= 30 %>
-            <div class="btnContainer">
-              <%= link_to '<button class="btnAddMeeting" name="30mButton" type="button">BOOK NEXT 30 MINS</button>'.html_safe, book30_path(@calendar.calendar_id)%>
+            <div class="btn-box">
+              <%= link_to '<button class="btnAddMeeting" name="30mButton" type="button"><span>30 MINUTES</span></button>'.html_safe, book30_path(@calendar.calendar_id)%>
             </div>
           <% end %>
           <% if ((@calendar.next_event.begin_time - DateTime.now) * 24 * 60).to_i  >= 60 %>
-            <div class="btnContainer">
-              <%= link_to '<button class="btnAddMeeting" name="1hrButton" type="button">BOOK NEXT HOUR</button>'.html_safe, bookHour_path(@calendar.calendar_id)%>
+            <div class="btn-box">
+              <%= link_to '<button class="btnAddMeeting" name="1hrButton" type="button"><span>1 HOUR</span></button>'.html_safe, bookHour_path(@calendar.calendar_id)%>
             </div>
           <% end %>
           <% if ((@calendar.next_event.begin_time - DateTime.now) * 24 * 60).to_i  < 30 %>
-            <div class="btnContainer">
-              <%= link_to '<button class="btnBookAvailable" name="BookTilNext" type="button">BOOK AVAILABLE TIME</button>'.html_safe, bookTil_path(@calendar.calendar_id)%>
+            <div class="btn-box">
+              <%= link_to '<button class="btnBookAvailable" name="BookTilNext" type="button"><span>BOOK AVAILABLE TIME</span></button>'.html_safe, bookTil_path(@calendar.calendar_id)%>
             </div>
           <% end %>
         <% end %>
@@ -126,7 +149,7 @@
 
 
 
-    <% @calendar.events.inject(nil) do |previous, event| %>
+    <!-- <% @calendar.events.inject(nil) do |previous, event| %>
       <% if @calendar.current_event == event %>
         <div class="nextOpening">
           Next opening at
@@ -141,7 +164,7 @@
       <% end %>
     <% end %>
 
-    <!-- <div class="available-rooms">
+    <div class="available-rooms">
     <% if @other_available_calenders.present? %>
       <% @other_available_calenders.each do |c| %>
         <% available_for = c.next_event.blank? ? "the rest of the day" : c.time_left(suffix: "")%>
@@ -152,6 +175,8 @@
       <p>No other rooms are available.</p>
     <% end %>
     </div> -->
+  </div>
+
   </div>
 
 <div class="mod-calendar">
