@@ -38,11 +38,9 @@ window.onload = function() {
 $(function() {
   $('.btnAddMeeting').click(function() {
     $(this).addClass('tapped', 250);
-    $(this).html('');
   });
   $('.btnBookAvailable').click(function() {
     $(this).addClass('tapped', 250);
-    $(this).html('');
   });
 });
 

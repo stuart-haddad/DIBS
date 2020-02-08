@@ -81,9 +81,9 @@ class Calendar
   end
 
   def exclamation
-    positive = ["Woohoo!", "Aw yeah!", "Boo-yah!", "Huzzah!", "Shazam!"]
-    negative = ["Shucks!", "Oh no!", "Bummer!", "Dagnabbit!", "Good grief!"]
-    random = rand(5)
+    positive = ["Woohoo!", "Aw yeah!", "Boo-yah!", "Huzzah!", "Shazam!", "Good News!"]
+    negative = ["Shucks...", "Oh No...", "Bummer...", "Dagnabbit...", "Hmmm...", "Bad News..."]
+    random = rand(6)
     if in_use?
       negative[random] + "\n"
     else
@@ -142,6 +142,8 @@ class Calendar
 
   def parse_location(location)
     return '' if location.blank?
-    location.gsub(/\s*\(.*\)/, "")
+    location.slice!("TSE-1-") #Removes Floor 1 Tag
+    location.slice!("TSE-2-") #Removes Floor 2 Tag
+    location.gsub(/\s*\(.*\)/, "") #Removes Room Capacity
   end
 end
