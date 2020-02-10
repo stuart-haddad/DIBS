@@ -265,6 +265,15 @@ $(function () {
       $(self.canvas).on('mouseup', function (e) {
         $(self.canvas).off('mousemove.fireworks');
       });
+
+      //Demo Fireworks
+      $(self.canvas).on('load', function (e) {
+        self.mx = self.canvas.offsetLeft;
+        self.my = self.canvas.offsetTop;
+        self.currentHue = rand(self.hueMin, self.hueMax);
+        self.createFireworks(self.cw / 2, self.ch, self.mx, self.my);
+      });
+
     }
     self.clear = function () {
       self.particles = [];
@@ -284,8 +293,4 @@ $(function () {
     self.init();
   }
   var fworks = new Fireworks();
-  $('#info-toggle').on('click', function (e) {
-    $('#info-inner').stop(false, true).slideToggle(100);
-    e.preventDefault();
-  });
 });

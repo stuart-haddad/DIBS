@@ -1,78 +1,168 @@
-<% require 'date' %>
-<% @calendar.events.inject(nil) do |previous, event| %>
-  <% if @calendar.next_event == event && ((@calendar.next_event.begin_time - DateTime.now) * 24 * 60).to_i <= 15 %>
-    <div class="welcome-panel particletext confetti
-      <% if ((@calendar.next_event.begin_time - DateTime.now) * 24 * 60) >= 14.5 %>
-        animate-on-load
-      <% elsif ((@calendar.next_event.begin_time - DateTime.now) * 24 * 60).to_i >=0%>
-        stay-there
-      <% end %>
-    ">
-      <div class="X">
-          <img src = "/ic-close.svg" id = "close-welcome-message">
-      </div>
-        <h2><%= @calendar.location %></h2>
-        <h1><%= event.welcome %>
-          <% if event.client != nil %>
-            <%= event.client %>.
-          <% else %>
-            <br><span><%= event.summary %></span>
-          <% end %>
-        </h1>
-        <p>Your meeting is in <%= @calendar.time_left %>.</p>
-    </div>
-  <% elsif @calendar.current_event == event && ((DateTime.now - @calendar.current_event.begin_time) * 24 * 60) <= 6 %>
-    <div class="welcome-panel animate-on-load particletext confetti
-      <% if ((DateTime.now - @calendar.current_event.begin_time) * 24 * 60) >=1 %>
-        stay-there
-      <% end %>
-    ">
-      <div class="X">
-          <img src = "/ic-close.svg" id = "close-welcome-message">
-      </div>
-        <h2><%= @calendar.location %></h2>
-        <h1><%= event.welcome %>
-          <% if event.client != nil %>
-            <%= event.client %>.
-          <% else %>
-            <br><span><%= event.summary %></span>
-          <% end %>
-        </h1>
-        <p>Your meeting is starting now!</p>
-    </div>
-  <% end %>
-<% end %>
-
-<div class="mod-meeting-display <%= @calendar.available? ? "available" : "in_use" %>">
-
-  <div class="mod-status">
-    <div class="status-header">
-      <svg xmlns="http://www.w3.org/2000/svg" width="180" height="60" viewBox="0 0 295.208 81.865">
-        <g id="dibs-logo-group" data-name="Group 22" transform="translate(-144.336 -2319.74)">
-          <g id="dibs." style="isolation: isolate">
-            <g id="Group_28" data-name="Group 28" style="isolation: isolate">
-              <path id="Path_102" data-name="Path 102" d="M276.747,2385.3a13.605,13.605,0,0,1-12.319,7.128c-13.2-.264-19.1-10.3-19.1-22.528-.264-11.263,5.9-22,18.3-22,4.575,0,9.239,1.495,11.263,5.808v-26.751h13.9v51.214c0,3.431-.176,4.927,3.607,4.927v8.1c-5.367,1.145-15.663,2.729-15.663-5.367Zm-2.288-15.488c0-5.368-2.464-9.591-6.951-9.591-4.929,0-7.216,4.047-7.216,9.679,0,5.72,2.464,9.416,7.479,9.327C272.348,2379.232,274.459,2375.185,274.459,2369.817Z"/>
-              <path id="Path_103" data-name="Path 103" d="M308.427,2329.515c4.311,0,8.712,2.815,8.712,8.447,0,5.72-4.4,8.536-8.712,8.536s-8.624-2.816-8.624-8.536C299.8,2332.33,304.115,2329.515,308.427,2329.515Zm7.479,62.214H300.947l.088-41.8h14.871Z"/>
-              <path id="Path_104" data-name="Path 104" d="M340.018,2354.682c3.08-4.489,6.248-5.9,11.616-5.9,8.447,0,18.127,6.6,17.863,22-.265,16.455-11.88,22.615-24.815,22.176a49.855,49.855,0,0,1-18.392-3.872v-61.158h13.728Zm.879,25.255a23.3,23.3,0,0,0,5.281.792c4.927,0,8.183-2.728,8.271-9.856.264-4.576-1.672-9.68-7.04-9.68-4.928,0-6.512,5.808-6.512,9.68Z"/>
-              <path id="Path_105" data-name="Path 105" d="M390,2378.265c0,2.728,2.464,3.784,4.928,3.784s4.927-1.144,4.927-3.344c0-2.64-2.288-2.992-4.664-3.256-8.359-.968-19.094-2.552-19.094-12.935,0-9.857,9.415-14.432,18.919-14.432,9.679,0,19.183,5.1,18.744,14.432H400.648c-.263-2.113-2.815-3.256-5.279-3.168-2.376.088-4.488,1.055-4.488,2.815-.264,2.641,2.9,2.729,4.928,2.992,9.416.968,19.447,2.288,19.183,13.552-.263,9.592-9.767,14.256-19.447,14.256s-19.888-2.465-20.151-14.7Z"/>
-              <path id="Path_106" data-name="Path 106" d="M422.12,2385.3c0-4.928,3.872-8.1,8.712-8.1,4.928,0,8.712,3.168,8.712,8.1s-3.784,8.008-8.712,8.008C425.992,2393.313,422.12,2390.232,422.12,2385.3Z"/>
+  <% if ((@calendar.next_event != nil && ((@calendar.next_event.begin_time - DateTime.now) * 24 * 60).to_i <= 10) || 
+        ((@calendar.current_event != nil) && (((DateTime.now - @calendar.current_event.begin_time) * 24 * 60).to_i <= 5))) %>
+  <div class="welcome-panel">
+    <div class="welcome-header">
+      <div class="flex-left">
+        <svg xmlns="http://www.w3.org/2000/svg" width="180" height="60" viewBox="0 0 295.208 81.865">
+          <style>
+            #dibs-logo-group path {
+              fill: #585858;
+            }
+          </style>
+          <g id="dibs-logo-group" data-name="Group 22" transform="translate(-144.336 -2319.74)">
+            <g id="dibs." style="isolation: isolate">
+              <g id="Group_28" data-name="Group 28" style="isolation: isolate">
+                <path id="Path_102" data-name="Path 102"
+                  d="M276.747,2385.3a13.605,13.605,0,0,1-12.319,7.128c-13.2-.264-19.1-10.3-19.1-22.528-.264-11.263,5.9-22,18.3-22,4.575,0,9.239,1.495,11.263,5.808v-26.751h13.9v51.214c0,3.431-.176,4.927,3.607,4.927v8.1c-5.367,1.145-15.663,2.729-15.663-5.367Zm-2.288-15.488c0-5.368-2.464-9.591-6.951-9.591-4.929,0-7.216,4.047-7.216,9.679,0,5.72,2.464,9.416,7.479,9.327C272.348,2379.232,274.459,2375.185,274.459,2369.817Z" />
+                <path id="Path_103" data-name="Path 103"
+                  d="M308.427,2329.515c4.311,0,8.712,2.815,8.712,8.447,0,5.72-4.4,8.536-8.712,8.536s-8.624-2.816-8.624-8.536C299.8,2332.33,304.115,2329.515,308.427,2329.515Zm7.479,62.214H300.947l.088-41.8h14.871Z" />
+                <path id="Path_104" data-name="Path 104"
+                  d="M340.018,2354.682c3.08-4.489,6.248-5.9,11.616-5.9,8.447,0,18.127,6.6,17.863,22-.265,16.455-11.88,22.615-24.815,22.176a49.855,49.855,0,0,1-18.392-3.872v-61.158h13.728Zm.879,25.255a23.3,23.3,0,0,0,5.281.792c4.927,0,8.183-2.728,8.271-9.856.264-4.576-1.672-9.68-7.04-9.68-4.928,0-6.512,5.808-6.512,9.68Z" />
+                <path id="Path_105" data-name="Path 105"
+                  d="M390,2378.265c0,2.728,2.464,3.784,4.928,3.784s4.927-1.144,4.927-3.344c0-2.64-2.288-2.992-4.664-3.256-8.359-.968-19.094-2.552-19.094-12.935,0-9.857,9.415-14.432,18.919-14.432,9.679,0,19.183,5.1,18.744,14.432H400.648c-.263-2.113-2.815-3.256-5.279-3.168-2.376.088-4.488,1.055-4.488,2.815-.264,2.641,2.9,2.729,4.928,2.992,9.416.968,19.447,2.288,19.183,13.552-.263,9.592-9.767,14.256-19.447,14.256s-19.888-2.465-20.151-14.7Z" />
+                <path id="Path_106" data-name="Path 106"
+                  d="M422.12,2385.3c0-4.928,3.872-8.1,8.712-8.1,4.928,0,8.712,3.168,8.712,8.1s-3.784,8.008-8.712,8.008C425.992,2393.313,422.12,2390.232,422.12,2385.3Z" />
+              </g>
+            </g>
+            <g id="Group_19" data-name="Group 19">
+              <path id="Path_20" data-name="Path 20"
+                d="M168.969,2373.4v-.1a17.751,17.751,0,1,1,35.4-2.7,2.255,2.255,0,0,0,4.5-.3,22.273,22.273,0,0,0-44.4,3.6v.2a42.455,42.455,0,0,0,8.2,21.6,2.249,2.249,0,0,0,2,.9,2.844,2.844,0,0,0,1.2-.4,2.242,2.242,0,0,0,.5-3.1A37.837,37.837,0,0,1,168.969,2373.4Z" />
+              <path id="Path_21" data-name="Path 21"
+                d="M208.069,2388.1a17.663,17.663,0,0,1-19.085-16.116c-.006-.061-.01-.123-.015-.184a2.255,2.255,0,0,0-4.5.3,22.291,22.291,0,0,0,24,20.4,2.31,2.31,0,0,0,2.1-2.4A2.39,2.39,0,0,0,208.069,2388.1Z" />
+              <path id="Path_22" data-name="Path 22"
+                d="M155.069,2336.2a47.657,47.657,0,0,1,59.5-2.9,2.149,2.149,0,0,0,1.5.4,2.605,2.605,0,0,0,1.6-.9,2.228,2.228,0,0,0-.5-3.1,52.045,52.045,0,0,0-65.1,3.1,2.267,2.267,0,1,0,3,3.4Z" />
+              <path id="Path_23" data-name="Path 23"
+                d="M183.269,2329.8a42.411,42.411,0,0,0-38.8,45.6,2.255,2.255,0,1,0,4.5-.3,37.773,37.773,0,1,1,75.3-6.1h0a2.255,2.255,0,0,0,4.5-.3A42.387,42.387,0,0,0,183.269,2329.8Z" />
+              <path id="Path_24" data-name="Path 24"
+                d="M184.069,2339.8a32.357,32.357,0,0,0-29.6,34.8v.2a55.022,55.022,0,0,0,2.7,12.8,2.174,2.174,0,0,0,2.3,1.5c.2,0,.4-.1.6-.1a2.269,2.269,0,0,0,1.406-2.883l-.006-.017a47.584,47.584,0,0,1-2.5-11.9v-.1a27.737,27.737,0,1,1,55.3-4.4v.1a7.778,7.778,0,0,1-15.5,1.3v-.1a12.187,12.187,0,0,0-24.3,1.9h0v.3a32.237,32.237,0,0,0,23.8,28.3,2.215,2.215,0,0,0,.8.1,2.3,2.3,0,0,0,.4-4.5,27.983,27.983,0,0,1-20.6-24.6v-.1a7.778,7.778,0,0,1,15.5-1.3v.1a12.241,12.241,0,0,0,24.4-2v-.2A32.268,32.268,0,0,0,184.069,2339.8Z" />
             </g>
           </g>
-          <g id="Group_19" data-name="Group 19">
-            <path id="Path_20" data-name="Path 20" d="M168.969,2373.4v-.1a17.751,17.751,0,1,1,35.4-2.7,2.255,2.255,0,0,0,4.5-.3,22.273,22.273,0,0,0-44.4,3.6v.2a42.455,42.455,0,0,0,8.2,21.6,2.249,2.249,0,0,0,2,.9,2.844,2.844,0,0,0,1.2-.4,2.242,2.242,0,0,0,.5-3.1A37.837,37.837,0,0,1,168.969,2373.4Z"/>
-            <path id="Path_21" data-name="Path 21" d="M208.069,2388.1a17.663,17.663,0,0,1-19.085-16.116c-.006-.061-.01-.123-.015-.184a2.255,2.255,0,0,0-4.5.3,22.291,22.291,0,0,0,24,20.4,2.31,2.31,0,0,0,2.1-2.4A2.39,2.39,0,0,0,208.069,2388.1Z"/>
-            <path id="Path_22" data-name="Path 22" d="M155.069,2336.2a47.657,47.657,0,0,1,59.5-2.9,2.149,2.149,0,0,0,1.5.4,2.605,2.605,0,0,0,1.6-.9,2.228,2.228,0,0,0-.5-3.1,52.045,52.045,0,0,0-65.1,3.1,2.267,2.267,0,1,0,3,3.4Z"/>
-            <path id="Path_23" data-name="Path 23" d="M183.269,2329.8a42.411,42.411,0,0,0-38.8,45.6,2.255,2.255,0,1,0,4.5-.3,37.773,37.773,0,1,1,75.3-6.1h0a2.255,2.255,0,0,0,4.5-.3A42.387,42.387,0,0,0,183.269,2329.8Z"/>
-            <path id="Path_24" data-name="Path 24" d="M184.069,2339.8a32.357,32.357,0,0,0-29.6,34.8v.2a55.022,55.022,0,0,0,2.7,12.8,2.174,2.174,0,0,0,2.3,1.5c.2,0,.4-.1.6-.1a2.269,2.269,0,0,0,1.406-2.883l-.006-.017a47.584,47.584,0,0,1-2.5-11.9v-.1a27.737,27.737,0,1,1,55.3-4.4v.1a7.778,7.778,0,0,1-15.5,1.3v-.1a12.187,12.187,0,0,0-24.3,1.9h0v.3a32.237,32.237,0,0,0,23.8,28.3,2.215,2.215,0,0,0,.8.1,2.3,2.3,0,0,0,.4-4.5,27.983,27.983,0,0,1-20.6-24.6v-.1a7.778,7.778,0,0,1,15.5-1.3v.1a12.241,12.241,0,0,0,24.4-2v-.2A32.268,32.268,0,0,0,184.069,2339.8Z"/>
+        </svg>
+      </div>
+      <h2><%= @calendar.location %></h2>
+      <div class="flex-right">
+        <svg class="X-cancel-button" xmlns="http://www.w3.org/2000/svg" width="29.658" height="29.658"
+          viewBox="0 0 29.658 29.658">
+          <defs>
+            <style>
+              .a {
+                fill: #fff;
+              }
+            </style>
+          </defs>
+          <g transform="translate(-17.171 -17.171)">
+            <path class="a"
+              d="M44,17.171l-12,12-12-12L17.171,20l12,12-12,12L20,46.829l12-12,12,12L46.829,44l-12-12,12-12Z" />
           </g>
+        </svg>
+      </div>
+    </div>
+    <div class="welcome-container">
+      <% welcomeEvent = nil %>
+      <% if (@calendar.current_event != nil) %>
+      <% welcomeEvent = @calendar.current_event %>
+      <% elsif (@calendar.next_event != nil) %>
+      <% welcomeEvent = @calendar.next_event %>
+      <% end %>
+      <h1><%= welcomeEvent.welcome %> &#127881;
+        <% if welcomeEvent.client != nil %>
+        <%= welcomeEvent.client %>.
+        <% end %>
+      </h1>
+      <% if (@calendar.current_event != nil) %>
+        <h3><%= welcomeEvent.summary %> <br> is starting now!</h3>
+      <% elsif (@calendar.next_event != nil) %>
+        <h3><%= welcomeEvent.summary %> <br> begins in <%= @calendar.time_left %>.</h3>
+      <% end %>
+      <div>
+      <div class="time">
+        <h4 class="time-header">Meeting Time:</h4>
+        <span class="time-span">
+          <%= welcomeEvent.begin_time.strftime("%l:%M%P") %> -<%= welcomeEvent.end_time.strftime("%l:%M%P") %>
+        <span>
+      </div>
+      <% if !welcomeEvent.attendees.empty? %>
+      <div class="attendees">
+        <h4 class="attendees-header">Attendees:</h4>
+        <div class="attendees-box">
+        <% welcomeEvent.attendees.each do |attendee| %>
+          <% image = welcomeEvent.getImage(attendee) %>
+          <span class="attendee-thumbnail" style="background-image: url(<%= asset_path image %>)"></span>
+        <% end %>
+        </div>
+      </div>
+      <% end %>
+      <svg class="tap-icon" xmlns="http://www.w3.org/2000/svg" width="44.542" height="63" viewBox="0 0 44.542 63">
+        <defs>
+          <style>
+            .tap {
+              fill: none;
+              stroke: #fff;
+              stroke-linecap: round;
+              stroke-linejoin: round;
+              stroke-miterlimit: 10;
+              stroke-width: 3px;
+            }
+          </style>
+        </defs>
+        <g transform="translate(-8.5 -0.5)">
+          <line class="tap" y2="4" transform="translate(28 2)" />
+          <line class="tap" x1="2.828" y2="2.828" transform="translate(37.899 7.272)" />
+          <line class="tap" x1="4" transform="translate(42 20)" />
+          <line class="tap" x2="2.828" y2="2.828" transform="translate(15.272 7.272)" />
+          <line class="tap" x2="4" transform="translate(10 20)" />
+          <line class="tap" y2="6" transform="translate(24 38)" />
+          <path class="tap" d="M31,36V33.5A3.5,3.5,0,0,1,34.5,30h0A3.5,3.5,0,0,1,38,33.5V36" />
+          <path class="tap" d="M38,37V35.5A3.5,3.5,0,0,1,41.5,32h0A3.5,3.5,0,0,1,45,35.5V38" />
+          <path class="tap"
+            d="M45,37.5A3.5,3.5,0,0,1,48.5,34h0a3.036,3.036,0,0,1,3.005,3.465L48,62H24c0-3.833-7-9.333-7-14V41a3,3,0,0,1,3-3h4V17.5A3.5,3.5,0,0,1,27.5,14h0A3.5,3.5,0,0,1,31,17.5V35" />
         </g>
       </svg>
-      <h2 class="room-name"><%= @calendar.location %></h2>
+      </div>
     </div>
+  </div>
+  <% end %>
 
-    <div class="status-container">
-    <div class="status">
-      <!-- 
+  <div class="mod-meeting-display <%= @calendar.available? ? "available" : "in_use" %>">
+
+    <div class="mod-status">
+      <div class="status-header">
+        <svg xmlns="http://www.w3.org/2000/svg" width="180" height="60" viewBox="0 0 295.208 81.865">
+          <g id="dibs-logo-group" data-name="Group 22" transform="translate(-144.336 -2319.74)">
+            <g id="dibs." style="isolation: isolate">
+              <g id="Group_28" data-name="Group 28" style="isolation: isolate">
+                <path id="Path_102" data-name="Path 102"
+                  d="M276.747,2385.3a13.605,13.605,0,0,1-12.319,7.128c-13.2-.264-19.1-10.3-19.1-22.528-.264-11.263,5.9-22,18.3-22,4.575,0,9.239,1.495,11.263,5.808v-26.751h13.9v51.214c0,3.431-.176,4.927,3.607,4.927v8.1c-5.367,1.145-15.663,2.729-15.663-5.367Zm-2.288-15.488c0-5.368-2.464-9.591-6.951-9.591-4.929,0-7.216,4.047-7.216,9.679,0,5.72,2.464,9.416,7.479,9.327C272.348,2379.232,274.459,2375.185,274.459,2369.817Z" />
+                <path id="Path_103" data-name="Path 103"
+                  d="M308.427,2329.515c4.311,0,8.712,2.815,8.712,8.447,0,5.72-4.4,8.536-8.712,8.536s-8.624-2.816-8.624-8.536C299.8,2332.33,304.115,2329.515,308.427,2329.515Zm7.479,62.214H300.947l.088-41.8h14.871Z" />
+                <path id="Path_104" data-name="Path 104"
+                  d="M340.018,2354.682c3.08-4.489,6.248-5.9,11.616-5.9,8.447,0,18.127,6.6,17.863,22-.265,16.455-11.88,22.615-24.815,22.176a49.855,49.855,0,0,1-18.392-3.872v-61.158h13.728Zm.879,25.255a23.3,23.3,0,0,0,5.281.792c4.927,0,8.183-2.728,8.271-9.856.264-4.576-1.672-9.68-7.04-9.68-4.928,0-6.512,5.808-6.512,9.68Z" />
+                <path id="Path_105" data-name="Path 105"
+                  d="M390,2378.265c0,2.728,2.464,3.784,4.928,3.784s4.927-1.144,4.927-3.344c0-2.64-2.288-2.992-4.664-3.256-8.359-.968-19.094-2.552-19.094-12.935,0-9.857,9.415-14.432,18.919-14.432,9.679,0,19.183,5.1,18.744,14.432H400.648c-.263-2.113-2.815-3.256-5.279-3.168-2.376.088-4.488,1.055-4.488,2.815-.264,2.641,2.9,2.729,4.928,2.992,9.416.968,19.447,2.288,19.183,13.552-.263,9.592-9.767,14.256-19.447,14.256s-19.888-2.465-20.151-14.7Z" />
+                <path id="Path_106" data-name="Path 106"
+                  d="M422.12,2385.3c0-4.928,3.872-8.1,8.712-8.1,4.928,0,8.712,3.168,8.712,8.1s-3.784,8.008-8.712,8.008C425.992,2393.313,422.12,2390.232,422.12,2385.3Z" />
+              </g>
+            </g>
+            <g id="Group_19" data-name="Group 19">
+              <path id="Path_20" data-name="Path 20"
+                d="M168.969,2373.4v-.1a17.751,17.751,0,1,1,35.4-2.7,2.255,2.255,0,0,0,4.5-.3,22.273,22.273,0,0,0-44.4,3.6v.2a42.455,42.455,0,0,0,8.2,21.6,2.249,2.249,0,0,0,2,.9,2.844,2.844,0,0,0,1.2-.4,2.242,2.242,0,0,0,.5-3.1A37.837,37.837,0,0,1,168.969,2373.4Z" />
+              <path id="Path_21" data-name="Path 21"
+                d="M208.069,2388.1a17.663,17.663,0,0,1-19.085-16.116c-.006-.061-.01-.123-.015-.184a2.255,2.255,0,0,0-4.5.3,22.291,22.291,0,0,0,24,20.4,2.31,2.31,0,0,0,2.1-2.4A2.39,2.39,0,0,0,208.069,2388.1Z" />
+              <path id="Path_22" data-name="Path 22"
+                d="M155.069,2336.2a47.657,47.657,0,0,1,59.5-2.9,2.149,2.149,0,0,0,1.5.4,2.605,2.605,0,0,0,1.6-.9,2.228,2.228,0,0,0-.5-3.1,52.045,52.045,0,0,0-65.1,3.1,2.267,2.267,0,1,0,3,3.4Z" />
+              <path id="Path_23" data-name="Path 23"
+                d="M183.269,2329.8a42.411,42.411,0,0,0-38.8,45.6,2.255,2.255,0,1,0,4.5-.3,37.773,37.773,0,1,1,75.3-6.1h0a2.255,2.255,0,0,0,4.5-.3A42.387,42.387,0,0,0,183.269,2329.8Z" />
+              <path id="Path_24" data-name="Path 24"
+                d="M184.069,2339.8a32.357,32.357,0,0,0-29.6,34.8v.2a55.022,55.022,0,0,0,2.7,12.8,2.174,2.174,0,0,0,2.3,1.5c.2,0,.4-.1.6-.1a2.269,2.269,0,0,0,1.406-2.883l-.006-.017a47.584,47.584,0,0,1-2.5-11.9v-.1a27.737,27.737,0,1,1,55.3-4.4v.1a7.778,7.778,0,0,1-15.5,1.3v-.1a12.187,12.187,0,0,0-24.3,1.9h0v.3a32.237,32.237,0,0,0,23.8,28.3,2.215,2.215,0,0,0,.8.1,2.3,2.3,0,0,0,.4-4.5,27.983,27.983,0,0,1-20.6-24.6v-.1a7.778,7.778,0,0,1,15.5-1.3v.1a12.241,12.241,0,0,0,24.4-2v-.2A32.268,32.268,0,0,0,184.069,2339.8Z" />
+            </g>
+          </g>
+        </svg>
+        <h2 class="room-name"><%= @calendar.location %></h2>
+      </div>
+
+      <div class="status-container">
+        <div class="status">
+          <!-- 
       <% specialDay = !@calendar.celebration.empty? %>
 
       <% if specialDay %>
@@ -85,21 +175,22 @@
 
       <% if !specialDay %>
       -->
-        <h2 class="exclamation"><%= @calendar.exclamation %></h2>
-        <h4 class="status-text"><%= @calendar.available? ? "This room is available." : "This room is unavailable." %></h4>
-        <h3 class="status-description">
-        <% if @calendar.available? %>
-          <% if @calendar.next_event != nil %>
-            <% tilNextMeeting = distance_of_time_in_words(@calendar.next_event.begin_time, DateTime.now)%>
+          <h2 class="exclamation"><%= @calendar.exclamation %></h2>
+          <h4 class="status-text"><%= @calendar.available? ? "This room is available." : "This room is unavailable." %>
+          </h4>
+          <h3 class="status-description">
+            <% if @calendar.available? %>
+            <% if @calendar.next_event != nil %>
+            <% tilNextMeeting = distance_of_time_in_words(@calendar.next_event.begin_time, DateTime.now) %>
             <%= "#{tilNextMeeting.capitalize()} until next meeting." %>
-          <% else %>
+            <% else %>
             <%= "This room is free for the rest of the day."%>
-          <% end %>
-        <% else %>
-          <%= @calendar.current_event.summary %>
-        <% end %>
-        </h3>
-      <!--
+            <% end %>
+            <% else %>
+            <%= @calendar.current_event.summary %>
+            <% end %>
+          </h3>
+          <!--
         <% specialDay = false %>
       <% end %>
 
@@ -115,179 +206,290 @@
       <% end %>
       -->
 
-    </div>
-    <!--
-    <div class="detailsBox">
-      <% @calendar.events.inject(nil) do |previous, event| %>
-          <% if @calendar.next_event == event && @calendar.available?%>
-            <div class="nextMeeting">
-              Next meeting begins at <%= event.begin_time.strftime("%l:%M %p")%>.
-            </div>
-          <% end %>
-      <% end %>
-    </div>
-    -->
-
-
-
-      <% if @calendar.available? %>
+        </div>
+        <% if @calendar.available? %>
         <div class="action-header">
           <h4 class="action-text">Call Dibs on this room</h4>
         </div>
         <div class="button-container">
-            <% if ( (@calendar.next_event == nil) || (((@calendar.next_event.begin_time - DateTime.now) * 24 * 60).to_i >= 30)) %>
-              <div class="btn-box">
-                <%= link_to book30_path(@calendar.calendar_id), :class => "btnAddMeeting" do %>
-                  <%= content_tag(:span, "30 MINUTES", :class => "button-text") %>
-                <% end %> 
-              </div>
+          <% if ( (@calendar.next_event == nil) || (((@calendar.next_event.begin_time - DateTime.now) * 24 * 60).to_i >= 30)) %>
+          <div class="btn-box">
+            <%= link_to book30_path(@calendar.calendar_id), :class => "btnAddMeeting" do %>
+            <%= content_tag(:span, "30 MINUTES", :class => "button-text") %>
             <% end %>
-            <% if ((@calendar.next_event == nil) || (((@calendar.next_event.begin_time - DateTime.now) * 24 * 60).to_i  >= 60)) %>
-              <div class="btn-box">
-                <%= link_to bookHour_path(@calendar.calendar_id), :class => "btnAddMeeting" do %>
-                  <%= content_tag(:span, "1 HOUR", :class => "button-text") %>
-                <% end %> 
-              </div>
+          </div>
+          <% end %>
+          <% if ((@calendar.next_event == nil) || (((@calendar.next_event.begin_time - DateTime.now) * 24 * 60).to_i  >= 60)) %>
+          <div class="btn-box">
+            <%= link_to bookHour_path(@calendar.calendar_id), :class => "btnAddMeeting" do %>
+            <%= content_tag(:span, "1 HOUR", :class => "button-text") %>
             <% end %>
-            <% if ((@calendar.next_event != nil) && (((@calendar.next_event.begin_time - DateTime.now) * 24 * 60).to_i  < 30)) %>
-              <div class="btn-box">
-                <%= link_to bookTil_path(@calendar.calendar_id), :class => "btnBookAvailable" do %>
-                  <%= content_tag(:span, "BOOK AVAILABLE TIME", :class => "button-text") %>
-                <% end %> 
-              </div>
+          </div>
+          <% end %>
+          <% if ((@calendar.next_event != nil) && (((@calendar.next_event.begin_time - DateTime.now) * 24 * 60).to_i  < 30)) %>
+          <% timeLeft = (distance_of_time_in_words(@calendar.next_event.begin_time, DateTime.now)).upcase %>
+          <div class="btn-box">
+            <%= link_to bookTil_path(@calendar.calendar_id), :class => "btnBookAvailable" do %>
+            <%= content_tag(:span, "#{timeLeft}", :class => "button-text") %>
             <% end %>
+          </div>
+          <% end %>
         </div>
-      <% else %>
+        <% else %>
+        <div class="action-header">
+          <h4 class="action-text">
+            <%= @other_available_calenders.present? ? "Other available rooms:" : "No other rooms available..." %></h4>
+        </div>
+        <div class="available-rooms">
+          <% crAvailable = false %>
+          <% cdAvailable = false %>
+          <% qrAvailable = false %>
+          <% srAvailable = false %>
           <% if @other_available_calenders.present? %>
-            <div class="action-header">
-              <h4 class="action-text">Other Available Rooms</h4>
-            </div>
-            <div class="available-rooms">
-            <% @other_available_calenders.each do |c| %>
-              <span><%= "#{c.location} is available!" %></span>
-              
-              <%# available_for = c.next_event.blank? ? "the rest of the day" : c.time_left(suffix: "")%>
-
-            <% end %>
-              <svg xmlns="http://www.w3.org/2000/svg" width="66" height="66" viewBox="0 0 66 66">
-                <g id="Group_40" data-name="Group 40" transform="translate(-55 -651)">
-                  <g id="Group_36" data-name="Group 36" transform="translate(-1317 -5333)">
-                    <rect id="Rectangle_31" data-name="Rectangle 31" width="30" height="7" rx="3.5" transform="translate(1390 6021)" stroke-width="3" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" fill="none"/>
-                    <path id="Rectangle_32" data-name="Rectangle 32" d="M4,0H16a4,4,0,0,1,4,4V25a0,0,0,0,1,0,0H0a0,0,0,0,1,0,0V4A4,4,0,0,1,4,0Z" transform="translate(1395 5996)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3"/>
-                    <path id="Path_147" data-name="Path 147" d="M1421.2,6014.571h4.19" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3"/>
-                    <path id="Path_148" data-name="Path 148" d="M1422.29,6014.571v9.929h-2.709" transform="translate(1)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3"/>
-                    <g id="Group_35" data-name="Group 35" transform="translate(1384.581 6014.571)">
-                      <path id="Path_147-2" data-name="Path 147" d="M1425.385,6014.571h-4.19" transform="translate(-1421.195 -6014.571)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3"/>
-                      <path id="Path_148-2" data-name="Path 148" d="M1419.581,6014.571v9.929h2.709" transform="translate(-1417.486 -6014.571)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3"/>
-                    </g>
-                    <path id="Path_149" data-name="Path 149" d="M1405,6028v10.694" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3"/>
-                    <path id="Path_150" data-name="Path 150" d="M1404,6034.213s-9.127.036-11.163,0-3.837,4.481-3.837,4.481" transform="translate(1.002)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3"/>
-                    <path id="Path_151" data-name="Path 151" d="M1389,6034.213s9.127.036,11.163,0,3.837,4.481,3.837,4.481" transform="translate(16.002)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3"/>
-                  </g>
-                  <rect id="Rectangle_33" data-name="Rectangle 33" width="66" height="66" transform="translate(55 651)" fill="none"/>
-                </g>
-              </svg>
-
-              <svg xmlns="http://www.w3.org/2000/svg" width="66" height="66" viewBox="0 0 66 66">
-                <g id="Group_38" data-name="Group 38" transform="translate(-237 -651)">
-                  <g id="Group_33" data-name="Group 33" transform="translate(251.544 661)">
-                    <g id="world-2" transform="translate(0 8.433)">
-                      <path id="Path_134" data-name="Path 134" d="M12,38.106c6.578-3.2,10.12-10.288,10.12-18.553S18.578,4.2,12,1" transform="translate(6.553 -1)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
-                      <path id="Path_135" data-name="Path 135" d="M16.12,38.106C9.542,34.9,6,27.818,6,19.553S9.542,4.2,16.12,1" transform="translate(2.433 -1)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
-                      <path id="Path_136" data-name="Path 136" d="M12,38.106V1" transform="translate(6.553 -1)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
-                      <path id="Path_138" data-name="Path 138" d="M.029,0H34.754" transform="translate(1.362 13.493)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="3"/>
-                      <path id="Path_137" data-name="Path 137" d="M1.518,0H35.133" transform="translate(0.586 25.3)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="3"/>
-                      <ellipse id="Ellipse_22" data-name="Ellipse 22" cx="18.5" cy="19" rx="18.5" ry="19" transform="translate(0.456 -0.433)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
-                    </g>
-                    <line id="Line_59" data-name="Line 59" y2="8" transform="translate(18.456)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3"/>
-                  </g>
-                  <rect id="Rectangle_35" data-name="Rectangle 35" width="66" height="66" transform="translate(237 651)" fill="none"/>
-                </g>
-              </svg>
-
-              <svg xmlns="http://www.w3.org/2000/svg" width="66" height="66" viewBox="0 0 66 66">
-                <g id="Group_37" data-name="Group 37" transform="translate(-328 -651)">
-                  <g id="volume-mute" transform="translate(341 665)">
-                    <path id="Path_142" data-name="Path 142" d="M48.729,35.2a8.331,8.331,0,0,0,0-11.782" transform="translate(-17.356 -10.095)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3"/>
-                    <path id="Path_143" data-name="Path 143" d="M55.6,37.752a15,15,0,0,0,0-21.208" transform="translate(-19.513 -7.938)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3"/>
-                    <path id="Path_144" data-name="Path 144" d="M37.388,29V50.268L25.125,41.349" transform="translate(-9.946 -11.848)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3"/>
-                    <path id="Path_145" data-name="Path 145" d="M14.663,31.443H6.43A3.43,3.43,0,0,1,3,28.012v-9.6a3.43,3.43,0,0,1,3.43-3.43h8.919L30.443,4V15.663" transform="translate(-3 -4)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3"/>
-                    <line id="Line_61" data-name="Line 61" x1="37.047" y2="37.047" transform="translate(1.372 0.686)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3"/>
-                  </g>
-                  <rect id="Rectangle_36" data-name="Rectangle 36" width="66" height="66" transform="translate(328 651)" fill="none"/>
-                </g>
-              </svg>
-
-              <svg xmlns="http://www.w3.org/2000/svg" width="66" height="66" viewBox="0 0 66 66">
-                <g id="Group_39" data-name="Group 39" transform="translate(-146 -651)">
-                  <g id="sun" transform="translate(158.959 664)">
-                    <line id="Line_10" data-name="Line 10" x2="7" transform="translate(0.041 20.253)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3"/>
-                    <line id="Line_11" data-name="Line 11" x2="5.566" y2="5.566" transform="translate(5.397 5.397)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3"/>
-                    <path id="Path_139" data-name="Path 139" d="M0,0V8.18" transform="translate(20.24 0)" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="3"/>
-                    <line id="Line_13" data-name="Line 13" x1="5.566" y2="5.566" transform="translate(29.516 5.397)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3"/>
-                    <line id="Line_14" data-name="Line 14" x1="8" transform="translate(32.041 20.253)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3"/>
-                    <line id="Line_15" data-name="Line 15" x1="5.566" y1="5.566" transform="translate(29.516 29.516)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3"/>
-                    <line id="Line_16" data-name="Line 16" y1="8" transform="translate(20.041 32.253)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3"/>
-                    <line id="Line_17" data-name="Line 17" y1="5.566" x2="5.566" transform="translate(5.397 29.516)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3"/>
-                    <circle id="Ellipse_1" data-name="Ellipse 1" cx="12" cy="12" r="12" transform="translate(8.041 8.253)" stroke-width="3" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" fill="none"/>
-                  </g>
-                  <rect id="Rectangle_34" data-name="Rectangle 34" width="66" height="66" transform="translate(146 651)" fill="none"/>
-                </g>
-              </svg>
-          <% else %>
-            <div class="action-header">
-              <h4 class="action-text">No other rooms are available...</h4>
-            </div>
+          <% @other_available_calenders.each do |c| %>
+          <!-- <span><%= "#{c.location} is available!" %></span> -->
+          <%if c.location == "Conference Room"%>
+          <% crAvailable = true %>
           <% end %>
-        </div> 
-      <% end %>
-
-
-
-    <!-- <% @calendar.events.inject(nil) do |previous, event| %>
-      <% if @calendar.current_event == event %>
-        <div class="nextOpening">
-          Next opening at
-          <% if @calendar.next_event != nil && @calendar.after_event(@calendar.next_event) != nil && @calendar.after_event(@calendar.next_event).begin_time == @calendar.next_event.end_time %>
-            <%= @calendar.after_event(@calendar.next_event).end_time.strftime("%l:%M %p") %>
-          <% elsif @calendar.next_event != nil && @calendar.current_event.end_time == @calendar.next_event.begin_time %>
-            <%= @calendar.next_event.end_time.strftime("%l:%M %p") %>
-          <% else %>
-            <%= @calendar.current_event.end_time.strftime("%l:%M %p") %>
+          <%if c.location == "Cafe Disco"%>
+          <% cdAvailable = true %>
           <% end %>
+          <%if c.location == "Quiet Room"%>
+          <% qrAvailable = true %>
+          <% end %>
+          <%if c.location == "Sunroom"%>
+          <% srAvailable = true %>
+          <% end %>
+          <%# available_for = c.next_event.blank? ? "the rest of the day" : c.time_left(suffix: "")%>
+          <% end %>
+          <% end %>
+
+          <% if @calendar.location != "Conference Room" %>
+          <div class="icon-span-block cr-block">
+            <svg xmlns="http://www.w3.org/2000/svg" width="66" height="66" viewBox="0 0 66 66">
+              <% if !(crAvailable) %>
+              <style>
+                #conference-room-icon path,
+                #conference-room-icon rect {
+                  stroke: #CC1E00;
+                }
+
+                .cr-block p {
+                  color: #CC1E00;
+                }
+              </style>
+              <% end %>
+              <g data-name="Group 40" transform="translate(-55 -651)">
+                <g id="conference-room-icon" data-name="Group 36" transform="translate(-1317 -5333)">
+                  <rect id="Rectangle_31" data-name="Rectangle 31" width="30" height="7" rx="3.5"
+                    transform="translate(1390 6021)" stroke-width="3" stroke="#fff" stroke-linecap="round"
+                    stroke-linejoin="round" stroke-miterlimit="10" fill="none" />
+                  <path id="Rectangle_32" data-name="Rectangle 32"
+                    d="M4,0H16a4,4,0,0,1,4,4V25a0,0,0,0,1,0,0H0a0,0,0,0,1,0,0V4A4,4,0,0,1,4,0Z"
+                    transform="translate(1395 5996)" fill="none" stroke="#fff" stroke-linecap="round"
+                    stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3" />
+                  <path id="Path_147" data-name="Path 147" d="M1421.2,6014.571h4.19" fill="none" stroke="#fff"
+                    stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3" />
+                  <path id="Path_148" data-name="Path 148" d="M1422.29,6014.571v9.929h-2.709" transform="translate(1)"
+                    fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"
+                    stroke-width="3" />
+                  <g id="Group_35" data-name="Group 35" transform="translate(1384.581 6014.571)">
+                    <path id="Path_147-2" data-name="Path 147" d="M1425.385,6014.571h-4.19"
+                      transform="translate(-1421.195 -6014.571)" fill="none" stroke="#fff" stroke-linecap="round"
+                      stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3" />
+                    <path id="Path_148-2" data-name="Path 148" d="M1419.581,6014.571v9.929h2.709"
+                      transform="translate(-1417.486 -6014.571)" fill="none" stroke="#fff" stroke-linecap="round"
+                      stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3" />
+                  </g>
+                  <path id="Path_149" data-name="Path 149" d="M1405,6028v10.694" fill="none" stroke="#fff"
+                    stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3" />
+                  <path id="Path_150" data-name="Path 150"
+                    d="M1404,6034.213s-9.127.036-11.163,0-3.837,4.481-3.837,4.481" transform="translate(1.002)"
+                    fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"
+                    stroke-width="3" />
+                  <path id="Path_151" data-name="Path 151" d="M1389,6034.213s9.127.036,11.163,0,3.837,4.481,3.837,4.481"
+                    transform="translate(16.002)" fill="none" stroke="#fff" stroke-linecap="round"
+                    stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3" />
+                </g>
+                <rect id="Rectangle_33" data-name="Rectangle 33" width="66" height="66" transform="translate(55 651)"
+                  fill="none" />
+              </g>
+            </svg>
+            <p>CR</p>
+          </div>
+          <% end %>
+
+          <% if @calendar.location != "Sunroom" %>
+          <div class="icon-span-block sr-block">
+            <svg xmlns="http://www.w3.org/2000/svg" width="66" height="66" viewBox="0 0 66 66">
+              <% if !(srAvailable) %>
+              <style>
+                #sun-room-icon path,
+                #sun-room-icon line,
+                #sun-room-icon circle {
+                  stroke: #CC1E00;
+                }
+
+                .sr-block p {
+                  color: #CC1E00;
+                }
+              </style>
+              <% end %>
+              <g id="sun-room-icon" data-name="Group 39" transform="translate(-146 -651)">
+                <g id="sun" transform="translate(158.959 664)">
+                  <line id="Line_10" data-name="Line 10" x2="7" transform="translate(0.041 20.253)" fill="none"
+                    stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"
+                    stroke-width="3" />
+                  <line id="Line_11" data-name="Line 11" x2="5.566" y2="5.566" transform="translate(5.397 5.397)"
+                    fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"
+                    stroke-width="3" />
+                  <path id="Path_139" data-name="Path 139" d="M0,0V8.18" transform="translate(20.24 0)" fill="none"
+                    stroke="#fff" stroke-linecap="round" stroke-width="3" />
+                  <line id="Line_13" data-name="Line 13" x1="5.566" y2="5.566" transform="translate(29.516 5.397)"
+                    fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"
+                    stroke-width="3" />
+                  <line id="Line_14" data-name="Line 14" x1="8" transform="translate(32.041 20.253)" fill="none"
+                    stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"
+                    stroke-width="3" />
+                  <line id="Line_15" data-name="Line 15" x1="5.566" y1="5.566" transform="translate(29.516 29.516)"
+                    fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"
+                    stroke-width="3" />
+                  <line id="Line_16" data-name="Line 16" y1="8" transform="translate(20.041 32.253)" fill="none"
+                    stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"
+                    stroke-width="3" />
+                  <line id="Line_17" data-name="Line 17" y1="5.566" x2="5.566" transform="translate(5.397 29.516)"
+                    fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"
+                    stroke-width="3" />
+                  <circle id="Ellipse_1" data-name="Ellipse 1" cx="12" cy="12" r="12" transform="translate(8.041 8.253)"
+                    stroke-width="3" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"
+                    fill="none" />
+                </g>
+                <rect id="Rectangle_34" data-name="Rectangle 34" width="66" height="66" transform="translate(146 651)"
+                  fill="none" />
+              </g>
+            </svg>
+            <p>SR</p>
+          </div>
+          <% end %>
+
+          <% if @calendar.location != "Cafe Disco" %>
+          <div class="icon-span-block cd-block">
+            <svg xmlns="http://www.w3.org/2000/svg" width="66" height="66" viewBox="0 0 66 66">
+              <% if !(cdAvailable) %>
+              <style>
+                #cafe-disco-icon path,
+                #cafe-disco-icon ellipse,
+                #cafe-disco-icon line {
+                  stroke: #CC1E00;
+                }
+
+                .cd-block p {
+                  color: #CC1E00;
+                }
+              </style>
+              <% end %>
+              <g id="cafe-disco-icon" data-name="Group 38" transform="translate(-237 -651)">
+                <g id="Group_33" data-name="Group 33" transform="translate(251.544 661)">
+                  <g id="world-2" transform="translate(0 8.433)">
+                    <path id="Path_134" data-name="Path 134"
+                      d="M12,38.106c6.578-3.2,10.12-10.288,10.12-18.553S18.578,4.2,12,1" transform="translate(6.553 -1)"
+                      fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" />
+                    <path id="Path_135" data-name="Path 135"
+                      d="M16.12,38.106C9.542,34.9,6,27.818,6,19.553S9.542,4.2,16.12,1" transform="translate(2.433 -1)"
+                      fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" />
+                    <path id="Path_136" data-name="Path 136" d="M12,38.106V1" transform="translate(6.553 -1)"
+                      fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" />
+                    <path id="Path_138" data-name="Path 138" d="M.029,0H34.754" transform="translate(1.362 13.493)"
+                      fill="none" stroke="#fff" stroke-linecap="round" stroke-width="3" />
+                    <path id="Path_137" data-name="Path 137" d="M1.518,0H35.133" transform="translate(0.586 25.3)"
+                      fill="none" stroke="#fff" stroke-linecap="round" stroke-width="3" />
+                    <ellipse id="Ellipse_22" data-name="Ellipse 22" cx="18.5" cy="19" rx="18.5" ry="19"
+                      transform="translate(0.456 -0.433)" fill="none" stroke="#fff" stroke-linecap="round"
+                      stroke-linejoin="round" stroke-width="3" />
+                  </g>
+                  <line id="Line_59" data-name="Line 59" y2="8" transform="translate(18.456)" fill="none" stroke="#fff"
+                    stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3" />
+                </g>
+                <rect id="Rectangle_35" data-name="Rectangle 35" width="66" height="66" transform="translate(237 651)"
+                  fill="none" />
+              </g>
+            </svg>
+            <p>CD</p>
+          </div>
+          <% end %>
+
+          <% if @calendar.location != "Quiet Room" %>
+          <div class="icon-span-block qr-block">
+            <svg xmlns="http://www.w3.org/2000/svg" width="66" height="66" viewBox="0 0 66 66">
+              <% if !(qrAvailable) %>
+              <style>
+                #quiet-room-icon path,
+                #quiet-room-icon line {
+                  stroke: #CC1E00;
+                }
+
+                .qr-block p {
+                  color: #CC1E00;
+                }
+              </style>
+              <% end %>
+              <g id="quiet-room-icon" data-name="Group 37" transform="translate(-328 -651)">
+                <g id="volume-mute" transform="translate(341 665)">
+                  <path id="Path_142" data-name="Path 142" d="M48.729,35.2a8.331,8.331,0,0,0,0-11.782"
+                    transform="translate(-17.356 -10.095)" fill="none" stroke="#fff" stroke-linecap="round"
+                    stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3" />
+                  <path id="Path_143" data-name="Path 143" d="M55.6,37.752a15,15,0,0,0,0-21.208"
+                    transform="translate(-19.513 -7.938)" fill="none" stroke="#fff" stroke-linecap="round"
+                    stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3" />
+                  <path id="Path_144" data-name="Path 144" d="M37.388,29V50.268L25.125,41.349"
+                    transform="translate(-9.946 -11.848)" fill="none" stroke="#fff" stroke-linecap="round"
+                    stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3" />
+                  <path id="Path_145" data-name="Path 145"
+                    d="M14.663,31.443H6.43A3.43,3.43,0,0,1,3,28.012v-9.6a3.43,3.43,0,0,1,3.43-3.43h8.919L30.443,4V15.663"
+                    transform="translate(-3 -4)" fill="none" stroke="#fff" stroke-linecap="round"
+                    stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3" />
+                  <line id="Line_61" data-name="Line 61" x1="37.047" y2="37.047" transform="translate(1.372 0.686)"
+                    fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"
+                    stroke-width="3" />
+                </g>
+                <rect id="Rectangle_36" data-name="Rectangle 36" width="66" height="66" transform="translate(328 651)"
+                  fill="none" />
+              </g>
+            </svg>
+            <p>QR</p>
+          </div>
+          <% end %>
+
+
         </div>
-      <% end %>
-    <% end %> -->
+        <% end %>
+      </div>
+    </div>
 
-
-  </div>
-
-  </div>
-
-<div class="mod-calendar">
-    <% 8.upto(11).each do |hour| %>
+    <div class="mod-calendar">
+      <% 8.upto(11).each do |hour| %>
       <div class="line hour-<%= hour %>-full"></div>
       <div class="line hour-<%= hour %>-half"></div>
       <div class="time time-<%= hour %>"><%= hour %>:00am</div>
-    <% end %>
+      <% end %>
       <div class="line hour-12-full"></div>
       <div class="line hour-12-half"></div>
       <div class="time time-12">12:00pm</div>
-    <% 13.upto(18).each do |hour| %>
+      <% 13.upto(18).each do |hour| %>
       <div class="line hour-<%= hour %>-full"></div>
       <div class="line hour-<%= hour %>-half"></div>
       <div class="time time-<%= hour %>"><%= hour-12 %>:00pm</div>
-    <% end %>
+      <% end %>
 
-    <% @calendar.events.inject(nil) do |previous_event, event| %>
+      <% @calendar.events.inject(nil) do |previous_event, event| %>
       <%= render partial: "events/event", locals: { event: event, previous_event: previous_event, calendar: @calendar } %>
       <% event %>
-    <% end %>
+      <% end %>
 
-    <span class="now" style="top: <%= seconds_to_px(Time.zone.now.seconds_since_midnight) %>px;">
-      <span class="label"><%= l(Time.zone.now, format: :time_only) %></span>
-    </span>
+      <span class="now" style="top: <%= seconds_to_px(Time.zone.now.seconds_since_midnight) %>px;">
+        <span class="label"><%= l(Time.zone.now, format: :time_only) %></span>
+      </span>
+    </div>
   </div>
-</div>
 
-<%= javascript_include_tag "app" %>
+  <%= javascript_include_tag "app" %>
