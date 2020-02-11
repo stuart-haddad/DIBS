@@ -267,11 +267,21 @@ $(function () {
       });
 
       //Demo Fireworks
-      $(self.canvas).on('load', function (e) {
-        self.mx = self.canvas.offsetLeft;
-        self.my = self.canvas.offsetTop;
+      $(window).on('load', function (e) {
         self.currentHue = rand(self.hueMin, self.hueMax);
-        self.createFireworks(self.cw / 2, self.ch, self.mx, self.my);
+        self.createFireworks(self.cw / 2, self.ch, 300, 550);
+        setTimeout(function () {
+          self.currentHue = rand(self.hueMin, self.hueMax);
+          self.createFireworks(self.cw / 2, self.ch, 750, 500);
+        }, 250);
+        setTimeout(function () {
+          self.currentHue = rand(self.hueMin, self.hueMax);
+          self.createFireworks(self.cw / 2, self.ch, 1000, 250);
+        }, 500);
+        setTimeout(function () {
+          self.currentHue = rand(self.hueMin, self.hueMax);
+          self.createFireworks(self.cw / 2, self.ch, 600, 200);
+        }, 750);
       });
 
     }
