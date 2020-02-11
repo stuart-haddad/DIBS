@@ -35,11 +35,20 @@ window.onload = function() {
 
 // Button Feedback
 $(function() {
-  $('.btnAddMeeting').click(function() {
-    $(this).addClass('tapped', 250);
-  });
-  $('.btnBookAvailable').click(function() {
-    $(this).addClass('tapped', 250);
+  $('.btnAddMeeting, .btnBookAvailable').click(function() {
+    let button = $(this);
+    $(this).addClass('tapped');
+    setInterval(function(){
+      setTimeout(function () {
+        button.attr("data-message","BOOKING..");
+      }, 500);
+      setTimeout(function () {
+        button.attr("data-message","BOOKING...");
+      }, 1000);
+      setTimeout(function () {
+        button.attr("data-message","BOOKING.");
+      }, 1500);
+    }, 500);
   });
 });
 

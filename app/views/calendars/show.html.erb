@@ -82,7 +82,7 @@
     <div class="time">
       <h4 class="time-header">Meeting Time:</h4>
       <span class="time-span">
-        <%= welcomeEvent.begin_time.strftime("%l:%M%P") %> -<%= welcomeEvent.end_time.strftime("%l:%M%P") %>
+        <%= welcomeEvent.begin_time.strftime("%l:%M%P") %> - <%= welcomeEvent.end_time.strftime("%-l:%M%P") %>
       <span>
     </div>
     <% if !welcomeEvent.attendees.empty? %>
@@ -218,14 +218,14 @@
       <div class="button-container">
         <% if ( (@calendar.next_event == nil) || (((@calendar.next_event.begin_time - DateTime.now) * 24 * 60).to_i >= 30)) %>
         <div class="btn-box">
-          <%= link_to book30_path(@calendar.calendar_id), :class => "btnAddMeeting" do %>
+          <%= link_to book30_path(@calendar.calendar_id), :class => "btnAddMeeting", :data => {:message => "BOOKING."} do %>
           <%= content_tag(:span, "30 MINUTES", :class => "button-text") %>
           <% end %>
         </div>
         <% end %>
         <% if ((@calendar.next_event == nil) || (((@calendar.next_event.begin_time - DateTime.now) * 24 * 60).to_i  >= 60)) %>
         <div class="btn-box">
-          <%= link_to bookHour_path(@calendar.calendar_id), :class => "btnAddMeeting" do %>
+          <%= link_to bookHour_path(@calendar.calendar_id), :class => "btnAddMeeting", :data => {:message => "BOOKING."} do %>
           <%= content_tag(:span, "1 HOUR", :class => "button-text") %>
           <% end %>
         </div>
@@ -233,7 +233,7 @@
         <% if ((@calendar.next_event != nil) && (((@calendar.next_event.begin_time - DateTime.now) * 24 * 60).to_i  < 30)) %>
         <% timeLeft = (distance_of_time_in_words(@calendar.next_event.begin_time, DateTime.now)).upcase %>
         <div class="btn-box">
-          <%= link_to bookTil_path(@calendar.calendar_id), :class => "btnBookAvailable" do %>
+          <%= link_to bookTil_path(@calendar.calendar_id), :class => "btnBookAvailable", :data => {:message => "BOOKING."} do %>
           <%= content_tag(:span, "#{timeLeft}", :class => "button-text") %>
           <% end %>
         </div>
@@ -265,7 +265,8 @@
       <% end %>
       <div class="action-header">
         <h4 class="action-text">
-          <%= (crAvailable || cdAvailable || qrAvailable || srAvailable) ? "Other available rooms:" : "No other rooms available..." %></h4>
+          <%= (crAvailable || cdAvailable || qrAvailable || srAvailable) ? "Other available rooms:" : "No other rooms available..." %>
+        </h4>
       </div>
       <div class="available-rooms">
         
