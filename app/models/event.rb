@@ -97,8 +97,8 @@ class Event
       image = "kara-thumbnail.jpg"
     when "phil.r@threesixtyeight.is", "phil.r@threesixtyeight.com"
       image = "phil-thumbnail.jpg"
-    when "cariolina.m@threesixtyeight.is", "cariolina.m@threesixtyeight.com"
-      image = "cariolina-thumbnail.jpg"
+    when "carolina.m@threesixtyeight.is", "carolina.m@threesixtyeight.com"
+      image = "carolina-thumbnail.jpg"
     when "maria.d@threesixtyeight.is", "maria.d@threesixtyeight.com"
       image = "maria-thumbnail.jpg"
     end
