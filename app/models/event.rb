@@ -101,6 +101,8 @@ class Event
       image = "carolina-thumbnail.jpg"
     when "maria.d@threesixtyeight.is", "maria.d@threesixtyeight.com"
       image = "maria-thumbnail.jpg"
+    when "john.k@threesixtyeight.is", "john.k@threesixtyeight.com"
+      image = "john-thumbnail.jpg"
     end
     image
   end

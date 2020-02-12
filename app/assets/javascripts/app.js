@@ -33,22 +33,24 @@ window.onload = function() {
   confetti();
 };
 
-// Button Feedback
-$(function() {
-  $('.btnAddMeeting, .btnBookAvailable').on("click", function(e) {
-    let button = $(this);
-    let busyMessage = "BOOKING.";
-    button.addClass('tapped');
-    // Dot-Dot-Dot Busy Button Feedback - D3B2F
-    setInterval(function() {
-      if (busyMessage.length === 10)
-        busyMessage = "BOOKING.";
-      else
-        busyMessage = busyMessage.concat(".");
-      button.attr("data-message", busyMessage);
-    }, 400);
-  });
+// Book Button Click Function
+$('.btnAddMeeting, .btnBookAvailable').on("click", function(e) {
+  let button = $(this);
+  let busyMessage = "BOOKING.";
+  // Prevent Multiple Taps
+  if (button.hasClass('tapped'))
+    e.preventDefault();
+  button.addClass('tapped');
+  // Dot-Dot-Dot Busy Button Feedback - D3B2F
+  setInterval(function() {
+    if (busyMessage.length === 10)
+      busyMessage = "BOOKING.";
+    else
+      busyMessage = busyMessage.concat(".");
+    button.attr("data-message", busyMessage);
+  }, 500);
 });
+
 
 // Random Number Function
 jQuery.rnd = function(m, n) {
