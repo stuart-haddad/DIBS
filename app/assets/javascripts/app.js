@@ -35,20 +35,18 @@ window.onload = function() {
 
 // Button Feedback
 $(function() {
-  $('.btnAddMeeting, .btnBookAvailable').click(function() {
+  $('.btnAddMeeting, .btnBookAvailable').on("click", function(e) {
     let button = $(this);
-    $(this).addClass('tapped');
-    setInterval(function(){
-      setTimeout(function () {
-        button.attr("data-message","BOOKING..");
-      }, 500);
-      setTimeout(function () {
-        button.attr("data-message","BOOKING...");
-      }, 1000);
-      setTimeout(function () {
-        button.attr("data-message","BOOKING.");
-      }, 1500);
-    }, 500);
+    let busyMessage = "BOOKING.";
+    button.addClass('tapped');
+    // Dot-Dot-Dot Busy Button Feedback - D3B2F
+    setInterval(function() {
+      if (busyMessage.length === 10)
+        busyMessage = "BOOKING.";
+      else
+        busyMessage = busyMessage.concat(".");
+      button.attr("data-message", busyMessage);
+    }, 400);
   });
 });
 
