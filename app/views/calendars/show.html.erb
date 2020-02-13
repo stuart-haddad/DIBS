@@ -3,7 +3,7 @@
 
 <%# WELCOME PANEL - Only displays IF there are 10 minutes until the next meeting OR 5 minutes or less into the current meeting %>
 <% if ((@calendar.next_event != nil && ((@calendar.next_event.begin_time - DateTime.now) * 24 * 60).to_i <= 10) || 
-      ((@calendar.current_event != nil) && (((DateTime.now - @calendar.current_event.begin_time) * 24 * 60).to_i <= 15))) %>
+      ((@calendar.current_event != nil) && (((DateTime.now - @calendar.current_event.begin_time) * 24 * 60).to_i <= 5))) %>
 <div class="welcome-panel">
   <div class="welcome-header">
     <div class="flex-left">
