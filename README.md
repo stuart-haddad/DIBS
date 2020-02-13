@@ -4,7 +4,7 @@ ThreeSixtyEight DIBS Quick Start:
 2. Run 'bundle install' to install all ruby gems.
 2. Run 'brew install redis' to install Redis for our database.
 3. Start a rails server by typing 'rails s' in the terminal
-4. Start a redis server by typeing 'redis-server' in the terminal
+4. Open a new terminal tab/window and start redis by typing 'redis-server' in the terminal
 5. Open a web browser and enter localhost:3000 in the address bar. YOU'VE DONE IT!
 
 
