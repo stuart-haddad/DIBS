@@ -2,9 +2,8 @@ window.onload = function() {
   // If animation is required on page load, add slide out class
   jQuery('.animate-on-load').addClass('slide-out');
   // On click of X, remove slide out class
-  jQuery('#close-welcome-message').click(function() {
-    jQuery('.welcome-panel').removeClass('stay-there');
-    jQuery('.welcome-panel').removeClass('slide-out');
+  jQuery('.X-cancel-button').click(function() {
+    jQuery('.welcome-panel').toggle();
   });
   // On click of button, disable it and add the animate class
   jQuery('.btnAddMeeting').click(function() {
@@ -34,17 +33,24 @@ window.onload = function() {
   confetti();
 };
 
-// Button Feedback
-$(function() {
-  $('.btnAddMeeting').click(function() {
-    $(this).addClass('tapped', 250);
-    $(this).html('');
-  });
-  $('.btnBookAvailable').click(function() {
-    $(this).addClass('tapped', 250);
-    $(this).html('');
-  });
+// Book Button Click Function
+$('.btnAddMeeting, .btnBookAvailable').on("click", function(e) {
+  let button = $(this);
+  let busyMessage = "BOOKING.";
+  // Prevent Multiple Taps
+  if (button.hasClass('tapped'))
+    e.preventDefault();
+  button.addClass('tapped');
+  // Dot-Dot-Dot Busy Button Feedback - D3B2F
+  setInterval(function() {
+    if (busyMessage.length === 10)
+      busyMessage = "BOOKING.";
+    else
+      busyMessage = busyMessage.concat(".");
+    button.attr("data-message", busyMessage);
+  }, 500);
 });
+
 
 // Random Number Function
 jQuery.rnd = function(m, n) {
