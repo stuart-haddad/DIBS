@@ -89,9 +89,12 @@
     <div class="attendees">
       <h4 class="attendees-header">Attendees:</h4>
       <div class="attendees-box">
-      <% welcomeEvent.attendees.each do |attendee| %>
+        <% attendeeCount = 1; %>
+        <% welcomeEvent.attendees.each do |attendee| %>
+        <% break if attendeeCount == 8 %>
         <% image = welcomeEvent.getImage(attendee) %>
         <span class="attendee-thumbnail" style="background-image: url(<%= asset_path image %>)"></span>
+        <% attendeeCount += 1; %>
       <% end %>
       </div>
     </div>
