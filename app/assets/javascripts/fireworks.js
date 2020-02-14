@@ -29,7 +29,7 @@ $(function () {
       self.partGravity = 1;
       self.hueMin = 0;
       self.hueMax = 360;
-      self.fworkSpeed = 4;
+      self.fworkSpeed = 8;
       self.fworkAccel = 10;
       self.hueVariance = 30;
       self.flickerDensity = 25;
@@ -70,8 +70,8 @@ $(function () {
           hue: rand(hue - self.hueVariance, hue + self.hueVariance),
           brightness: rand(50, 80),
           alpha: rand(40, 100) / 100,
-          decay: rand(10, 50) / 1000,
-          wind: (rand(0, self.partWind) - (self.partWind / 2)) / 25,
+          decay: 20 / 1000,
+          wind: 0,
           lineWidth: self.lineWidth
         };
         self.particles.push(newParticle);
