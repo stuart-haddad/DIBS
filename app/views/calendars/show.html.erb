@@ -183,8 +183,6 @@
     <% if !specialDay %>
     -->
         <h2 class="exclamation"><%= @calendar.exclamation %></h2>
-        <h4 class="status-text"><%= @calendar.available? ? "This room is available." : "This room is unavailable." %>
-        </h4>
         <h3 class="status-description">
           <% if @calendar.available? %>
           <% if @calendar.next_event != nil %>
