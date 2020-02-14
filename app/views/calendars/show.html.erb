@@ -63,9 +63,9 @@
   </div>
   <div class="welcome-container">
     <% welcomeEvent = nil %>
-    <% if (@calendar.current_event != nil) %>
+    <% if (@calendar.current_event != nil && (((DateTime.now - @calendar.current_event.begin_time) * 24 * 60).to_i <= 5)) %>
     <% welcomeEvent = @calendar.current_event %>
-    <% elsif (@calendar.next_event != nil) %>
+    <% elsif (@calendar.next_event != nil && ((@calendar.next_event.begin_time - DateTime.now) * 24 * 60).to_i <= 10) %>
     <% welcomeEvent = @calendar.next_event %>
     <% end %>
     <h1><%= welcomeEvent.welcome %> &#127881;
@@ -73,9 +73,9 @@
       <%= welcomeEvent.client %>.
       <% end %>
     </h1>
-    <% if (@calendar.current_event != nil) %>
+    <% if (welcomeEvent == @calendar.current_event) %>
       <h3><%= welcomeEvent.summary %> <br> is starting now!</h3>
-    <% elsif (@calendar.next_event != nil) %>
+    <% elsif (welcomeEvent == @calendar.next_event) %>
       <h3><%= welcomeEvent.summary %> <br> begins in <%= @calendar.time_left %>.</h3>
     <% end %>
     <div>
