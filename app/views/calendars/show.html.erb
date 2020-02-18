@@ -169,20 +169,10 @@
 
     <div class="status-container">
       <div class="status">
-        <!-- 
-    <% specialDay = !@calendar.celebration.empty? %>
-
-    <% if specialDay %>
-      <marquee direction="down" width="550" height="500" behavior="alternate" style="position:absolute; font-size: 45px; width: 550px; height: 410px">
-            <marquee behavior="alternate">
-              <%= @calendar.celebration %>
-            </marquee>
-      </marquee>
-      <% end %>
-
-    <% if !specialDay %>
-    -->
         <h2 class="exclamation"><%= @calendar.exclamation %></h2>
+        <h4 class="status-text">
+          <%= @calendar.available? ? "This room is available." : "This room is unavailable." %>
+        </h4>
         <h3 class="status-description">
           <% if @calendar.available? %>
           <% if @calendar.next_event != nil %>
@@ -195,21 +185,6 @@
           <%= @calendar.current_event.summary %>
           <% end %>
         </h3>
-        <!--
-      <% specialDay = false %>
-    <% end %>
-
-    <% if specialDay %>
-      <% if @calendar.available? %>
-          <img src = "/greenCarlton.gif" id = "carlton">
-        <% else %>
-          <img src = "/redCarlton.gif" id = "carlton">
-        <% end %>
-        <br>
-        <h1> <%= @calendar.exclamation %> </h1>
-        <h1> <%= @calendar.available? ? "This room is currently available." : "This room is currently unavailable." %> </h1>
-    <% end %>
-    -->
 
       </div>
       <% if @calendar.available? %>
