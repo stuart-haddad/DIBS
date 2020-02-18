@@ -14,7 +14,7 @@ class Event
   def initialize(calendar, json)
     @calendar = calendar
     if json.present?
-      @summary = json.summary
+      @summary = parse_summary(json.summary)
       @all_day = json.start.date_time.blank?
       @begin_time = parse_begin_time(json.start.date_time)
       @end_time = parse_end_time(json.end.date_time)
@@ -150,6 +150,13 @@ class Event
     else
       return "Welcome, "
     end
+  end
+
+  def parse_summary(summary)
+    # Remove client brackets if they exist
+    summary.slice!("[");
+    summary.slice!("]");
+    summary
   end
 
   def parse_meeting_event(summary)
