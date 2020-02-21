@@ -74,9 +74,9 @@
       <% end %>
     </h1>
     <% if (welcomeEvent == @calendar.current_event) %>
-      <h3><%= welcomeEvent.summary %> <br> is starting now!</h3>
+      <h3><%= welcomeEvent.summary %> is starting now!</h3>
     <% elsif (welcomeEvent == @calendar.next_event) %>
-      <h3><%= welcomeEvent.summary %> <br> begins in <%= @calendar.time_left %>.</h3>
+      <h3><%= welcomeEvent.summary %> begins in <%= @calendar.time_left %>.</h3>
     <% end %>
     <div>
     <div class="time">
