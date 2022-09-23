@@ -13,6 +13,7 @@ gem "google-api-client"
 gem "timecop"
 gem "bourbon", "4.2.7"
 gem "redis"
+gem "rb-readline"
 
 group :test do
   gem "rspec-rails", "~> 3.5"

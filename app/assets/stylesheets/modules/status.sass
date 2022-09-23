@@ -1,126 +1,103 @@
 .welcome-panel
+  overflow: hidden
   display: block
   position: absolute
-  transform: translateX(-100%)
   font-size: 40px
   width: 100%
   height: 100%
   background-color: #212629
   z-index: 10
   transition: 1s all ease-in-out
-  h1
-    display: block
-    margin-left: 50px
-    margin-bottom: 0
-    font-size: 140px
-    color: #FFFFFF
-    width: 80%
-    height: 530px
-    line-height: 135px
-  h2
-    display: block
-    color: #FFFFFF
-    font-size: 30px
-    width: 850px
-    margin-top: 25px
-    margin-left: 50px
-    margin-right: auto
-    padding-bottom: 25px
-    font-weight: bold
+  .welcome-header
+    padding: 0 25px
+    height: 85px
+    width: 100%
+    display: flex
+    justify-content: space-between
+    align-items: center
     border-bottom: 3px solid rgba(255, 255, 255, .1)
-  p
-    display: block
-    margin-left: 50px
-    font-size: 60px
-    color: #FFFFFF
-    width: 950px
-    height: 70px
-  .X
-    position: absolute
-    width: 70px
-    height: 70px
-    top: 20px
-    right: 20px
-    z-index: 15
-  span
-    font-size: 50%
-    margin-top: 5%
-    display: inline-block
-    line-height: 73px
+    .X-cancel-button
+      width: 70px
+      height: 70px
+      padding: 0 20px
+      z-index: 15
+    div, h2
+      flex-grow: 1
+      flex-basis: 0
+    .flex-left
+      display: flex
+      justify-content: flex-start
+    .flex-right
+      display: flex
+      justify-content: flex-end
+    h2
+      color: #FFFFFF
+      font-size: 30px
+      font-weight: 400
+      text-align: center
+  .welcome-container
+    margin: 50px
+    h1
+      font-size: 74px
+      font-weight: bold
+      margin-bottom: 70px
+      line-height: 1
+      color: #FFFFFF
+      width: 100%
+    h3
+      font-size: 70px
+      font-weight: 300
+      color: #FFFFFF
+      height: 345px
+      margin-bottom: 25px
+    .attendees, .time
+      display: inline-block
+      float: left
+      width: 460px
+      margin-right: 25px
+    .attendees-header
+      color: white
+      display: block
+      width: 460px
+      font-size: 20px
+      padding-bottom: 8px
+      border-bottom: 3px solid rgba(255, 255, 255, .1)
+      text-transform: uppercase
+    .attendees-box
+      display: block
+      padding: 10px 0
+      overflow: hidden
+    .attendee-thumbnail
+      display: inline-block
+      background-size: cover
+      background-position: center
+      background-repeat: no-repeat
+      height: 60px
+      width: 60px
+      border: 3px solid #212629
+      border-radius: 50%
+      &:not(:first-child)
+        margin-left: -20px
+
+    .time-header
+      color: white
+      font-size: 20px
+      padding-bottom: 8px
+      border-bottom: 3px solid rgba(255, 255, 255, .1)
+      text-transform: uppercase
+    .time-span
+      font-size: 30px
+      font-weight: bold
+      color: white
+    .tap-icon
+      position: absolute
+      right: 75px
+      bottom: 75px
 
 #carlton
   height: 100%
   width: auto
   margin-left: 41%
-
-.slide-out
-  transform: translateX(0%)
-
-.stay-there
-  transition: 0s all ease-in-out
-  transform: translateX(0%)
-
-//****************************//
-//CONFETTI ANIMATION AWWW YEAH//
-//****************************//
-/* Style text */
-.particletext
-  /* Set css confetti animation */
-.particletext.confetti > .particle
-  opacity: 0
-  position: absolute
-  -webkit-animation: confetti 3s ease-in infinite
-  animation: confetti 3s ease-in infinite
-
-  /* Set 1st confetti color */
-.particletext.confetti > .particle.c1
-  background-color: #FBBC05
-
-  /* Set 2nd confetti color */
-.particletext.confetti > .particle.c2
-  background-color: #09AB92
-
-  /* Set 3rd confetti color */
-.particletext.confetti > .particle.c3
-  background-color: #E01563
-
-/* Define css confetti animation */
-@-webkit-keyframes confetti
-  0%
-    opacity: 0
-    -webkit-transform: translateY(0%) rotate(0deg)
-            transform: translateY(0%) rotate(0deg)
-  10%
-    opacity: 1
-  35%
-    -webkit-transform: translateY(-800%) rotate(270deg)
-            transform: translateY(-800%) rotate(270deg)
-  80%
-    opacity: 1
-  100%
-    opacity: 0
-    -webkit-transform: translateY(2000%) rotate(1440deg)
-            transform: translateY(2000%) rotate(1440deg)
-
-@keyframes confetti
-  0%
-    opacity: 0
-    -webkit-transform: translateY(0%) rotate(0deg)
-            transform: translateY(0%) rotate(0deg)
-  10%
-    opacity: 1
-
-  35%
-    -webkit-transform: translateY(-800%) rotate(270deg)
-            transform: translateY(-800%) rotate(270deg)
-  80%
-    opacity: 1
-  100%
-    opacity: 0
-    -webkit-transform: translateY(2000%) rotate(1440deg)
-            transform: translateY(2000%) rotate(1440deg)
-
-// END OF CONFETTI
 
 .mod-status
   display: flex
@@ -137,37 +114,58 @@
     margin-left: 50px
     margin-bottom: 20px
 
-  .room-name
-    display: block
-    width: 539px
-    margin-top: 25px
-    margin-left: 50px
-    margin-right: auto
+  .status-header
+    display: flex
+    justify-content: space-between
+    align-items: center
+    width: 100%
+    height: 85px
+    padding: 0px 35px
     font-weight: bold
+    background-color: #096E5F
     .in_use &
-      border-bottom: 3px solid rgba(204, 30, 0, .25)
+      background-color: #991700
+      h2
+        color: #FF3C1A
+      #dibs-logo-group path
+        fill: #FF3C1A
     .available &
-      border-bottom: 3px solid rgba(11, 131, 113, .25)
-    h2
-      display: block
-      font-size: 30px
-      line-height: 10px
+      background-color: #096E5F
+      h2
+        color: #09AB92
+      #dibs-logo-group path
+        fill: #09AB92
+    h1
+      margin-bottom: 0px
+    .room-name
+      margin-bottom: 0px
+      font-size: 32px
+      font-weight: 300
+
+  .status-container
+    margin-top: 50px
+    margin-left: 50px
+    margin-right: 100px
 
   .status
-    font-size: 80px
-    font-weight: bold
-    display: block
-    width: 450px
-    height: 370px
-    margin-left: 50px
-    margin-top: 35px
     text-align: left
     font-family: $font-family-header
     line-height: 1.3
-    h2
-      font-size: 50px
-      text-align: center
-
+    height: 455px
+    margin-bottom: 45px
+    overflow: hidden
+    .exclamation 
+      font-size: 74px
+      font-weight: bold
+      margin-bottom: 50px
+      line-height: 1
+    .status-text
+      text-transform: uppercase
+      font-size: 20px
+      margin-bottom: 8px
+    .status-description
+      font-size: 68px
+      font-weight: 300
 
   .in_use &
     color: white
@@ -180,18 +178,14 @@
   .detailsBox
     display: flex
     flex-direction: column-reverse
-    width: 85%
     height: 100px
-    margin-top: 50px
+    margin-top: 90px
 
   .nextMeeting,
   .meetingInProgress
     display: block
-    position: relative
-    top: 300px
-    padding-top: 25px
+    padding-bottom: 25px
     font-size: 32px
-    margin-left: 50px
 
   .nextOpening
     display: block
@@ -199,65 +193,92 @@
     top: 250px
     padding-top: 25px
     font-size: 32px
-    margin-left: 50px
 
   .available-rooms
     display: block
-    height: 20px
     margin-bottom: 0
-    margin-top: 20px
-    margin-left: 50px
+    margin-top: 10px
+    .icon-span-block
+      display: inline-block
+      margin-right: 15px
     p
-      font-size: 26px
+      text-align: center
+      font-size: 20px
 
-  .buttons
+  .action-header
+    padding-bottom: 8px
+    .in_use &
+      border-bottom: 3px solid rgba(153,23,0,.3)
+
+    .available &
+      border-bottom: 3px solid rgba(11,131,113,.3)
+
+  .action-text
+    text-transform: uppercase
+    font-size: 17px
+
+  .button-container
     display: flex
-    width: 500px
+    justify-content: space-between
+    width: 100%
     margin-top: 25px
-    margin-left: 50px
     position: relative
     align-items: center
 
-  .btnContainer
+  .btn-box
+    height: 60px
     display: inline-flex
-    height: 65px
-    margin-right: 20px
     justify-content: center
     align-items: center
-    min-width: 225px
+
+    a
+      height: 100%
+      text-decoration: none
+      text-align: center
+      overflow: hidden
+      position: relative
+
+      .button-text
+        display: inline-block
+        width: 100%
+        text-align: center
+        transition: all 0.4s ease
+
+      &::after
+        display: inline-block
+        content: attr(data-message)
+        position: absolute
+        transition: all 0.4s ease
+        bottom: -36px
+        left: 0
+        right: 0
+
+    .tapped
+      .button-text
+        transform: translateY(-50px)
+      &::after
+        bottom: 14px
 
   .btnAddMeeting, .btnBookAvailable
-    color: #09AB92
     font-size: 18px
     font-weight: bold
-    padding: 15px
-    height: 65px
+    padding: 17px 50px
     border: none
-    border-radius: 5px
+    border-radius: 50px
     background-color: #FFFFFF
     transition: all 0.25s ease
     overflow: hidden
+    box-shadow: 0px 3px 16px #707070
 
-  .btnAddMeeting
-    width: 225px
-  .btnBookAvailable
-    width: 400px
+    .in_use &
+      color: #991700
+    .available &
+      color: #096E5F
+    
+  .btnAddMeeting, .btnBookAvailable
+    width: 235px
 
-  .tapped
-    width: 40px
-    background-color: #FFFFFF
-    font-size: 0
-    margin: auto
-    animation: rotating 1.5s 0.25s linear infinite
-    border-radius: 0
-    height: 40px
-    &:before
-      content: ""
-    &:after
-      content: ""
-
-  @keyframes rotating
-    from
-      transform: rotate(0deg)
-    to
-      transform: rotate(360deg)
+canvas
+  position: absolute
+  top: 0
+  left: 0

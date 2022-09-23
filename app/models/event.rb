@@ -14,7 +14,7 @@ class Event
   def initialize(calendar, json)
     @calendar = calendar
     if json.present?
-      @summary = json.summary
+      @summary = parse_summary(json.summary)
       @all_day = json.start.date_time.blank?
       @begin_time = parse_begin_time(json.start.date_time)
       @end_time = parse_end_time(json.end.date_time)
@@ -58,6 +58,55 @@ class Event
     end
   end
 
+  def getImage(attendee)
+    image = "placeholder-thumbnail.jpg"
+    case attendee 
+    when "stuart.h@threesixtyeight.is", "stuart.h@threesixtyeight.com"
+      image = "stuart-thumbnail.jpg"
+    when "shelby.b@threesixtyeight.is", "shelby.b@threesixtyeight.com"
+      image = "shelby-thumbnail.jpg"
+    when "corey.s@threesixtyeight.is", "corey.s@threesixtyeight.com"
+      image = "corey-thumbnail.jpg"
+    when "tara.h@threesixtyeight.is", "tara.h@threesixtyeight.com"
+      image = "tara-thumbnail.jpg"
+    when "ebony.s@threesixtyeight.is", "ebony.s@threesixtyeight.com"
+      image = "ebony-thumbnail.jpg"
+    when "gus.m@threesixtyeight.is", "gus.m@threesixtyeight.com"
+      image = "gus-thumbnail.jpg"
+    when "hailey.j@threesixtyeight.is", "hailey.j@threesixtyeight.com"
+      image = "hailey-thumbnail.jpg"
+    when "jeremy.b@threesixtyeight.is", "jeremy.b@threesixtyeight.com"
+      image = "jeremy-thumbnail.jpg"
+    when "justin.h@threesixtyeight.is", "justin.h@threesixtyeight.com"
+      image = "justin-thumbnail.jpg"
+    when "nick.d@threesixtyeight.is", "nick.d@threesixtyeight.com"
+      image = "nick-thumbnail.jpg"
+    when "sherin.d@threesixtyeight.is", "sherin.d@threesixtyeight.com"
+      image = "sherin-thumbnail.jpg"
+    when "tim.r@threesixtyeight.is", "tim.r@threesixtyeight.com"
+      image = "tim-thumbnail.jpg"
+    when "tj.b@threesixtyeight.is", "tj.b@threesixtyeight.com"
+      image = "tj-thumbnail.jpg"
+    when "adam.g@threesixtyeight.is", "adam.g@threesixtyeight.com"
+      image = "adam-thumbnail.jpg"
+    when "bri.e@threesixtyeight.is", "bri.e@threesixtyeight.com"
+      image = "bri-thumbnail.jpg"
+    when "cody.c@threesixtyeight.is", "cody.c@threesixtyeight.com"
+      image = "cody-thumbnail.jpg"
+    when "kara.p@threesixtyeight.is", "kara.p@threesixtyeight.com"
+      image = "kara-thumbnail.jpg"
+    when "phil.r@threesixtyeight.is", "phil.r@threesixtyeight.com"
+      image = "phil-thumbnail.jpg"
+    when "carolina.m@threesixtyeight.is", "carolina.m@threesixtyeight.com"
+      image = "carolina-thumbnail.jpg"
+    when "maria.d@threesixtyeight.is", "maria.d@threesixtyeight.com"
+      image = "maria-thumbnail.jpg"
+    when "john.k@threesixtyeight.is", "john.k@threesixtyeight.com"
+      image = "john-thumbnail.jpg"
+    end
+    image
+  end
+
   private
 
   def parse_begin_time(begin_time)
@@ -80,11 +129,7 @@ class Event
 
   def parse_attendee(attendee)
     return '' if attendee.blank?
-
-    name = attendee.display_name.presence || attendee.email
-    name = name[/^(.+?)./]
-    name.capitalize
-
+    name = attendee.email
     name
   end
 
@@ -100,15 +145,22 @@ class Event
   end
 
   def parse_welcome(summary)
-     if summary.include?("[") == false
+    if summary.nil? || !summary.include?("[")
       return "Welcome!" 
-  else
-    return "Welcome, "
+    else
+      return "Welcome, "
     end
   end
 
+  def parse_summary(summary)
+    # Remove client brackets if they exist
+    summary.slice!("[");
+    summary.slice!("]");
+    summary
+  end
+
   def parse_meeting_event(summary)
-    if summary.include?("[") == false
+    if summary.nil? || !summary.include?("[")
       return 'Next opening is at'
     else
       return ', next opening is at'
